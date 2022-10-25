@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.onlinepurchase.activity.menu.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_productListFragment"
+            app:destination="@id/productListFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_productDescriptionFragment"
+            app:destination="@id/productDescriptionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_cart"
+        android:name="com.example.onlinepurchase.activity.menu.cart.CartFragment"
+        android:label="@string/title_cart"
+        tools:layout="@layout/fragment_cart" />
+
+    <fragment
+        android:id="@+id/navigation_profil"
+        android:name="com.example.onlinepurchase.activity.menu.profil.ProfilFragment"
+        android:label="@string/title_profil"
+        tools:layout="@layout/fragment_profil" >
+        <action
+            android:id="@+id/action_navigation_profil_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="com.example.onlinepurchase.activity.fragments.ProductListFragment"
+        android:label="@string/title_product">
+        <argument
+            android:name="category"
+            app:argType="com.example.onlinepurchase.activity.data.Category" />
+        <action
+            android:id="@+id/action_productListFragment_to_productDescriptionFragment"
+            app:destination="@id/productDescriptionFragment" />
+        <action
+            android:id="@+id/action_productListFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDescriptionFragment"
+        android:name="com.example.onlinepurchase.activity.fragments.ProductDescriptionFragment"
+        android:label="@string/title_descrption">
+        <argument
+            android:name="productID"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_productDescriptionFragment_to_productListFragment"
+            app:destination="@id/productListFragment" />
+        <action
+            android:id="@+id/action_productDescriptionFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.example.onlinepurchase.activity.fragments.OrderDetailsFragment"
+        android:label="@string/title_detail">
+        <argument
+            android:name="orderID"
+            app:argType="integer" />
+    </fragment>
+</navigation>

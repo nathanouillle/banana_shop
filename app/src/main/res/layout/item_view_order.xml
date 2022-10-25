@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="265dp"
+    android:layout_height="75dp"
+    android:id="@+id/card_view_order"
+    android:orientation="vertical"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="5dp"
+    android:clickable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="265dp"
+        android:layout_height="75dp">
+
+
+        <TextView
+            android:id="@+id/text_view_order_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="129 Rondeau, Nueva Cordoba" />
+
+        <TextView
+            android:id="@+id/text_view_order_number_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="5dp"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/text_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_items"
+            app:layout_constraintStart_toEndOf="@id/text_view_order_number_items"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="3dp"/>
+
+        <TextView
+            android:id="@+id/text_view_order_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/text_items"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="3dp"
+            tools:text="45"/>
+
+        <TextView
+            android:id="@+id/text_devise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="€"
+            app:layout_constraintStart_toEndOf="@id/text_view_order_price"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="5dp"
+            tools:text="Oct 22" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/text_view_order_address"
+            android:layout_marginTop="8dp"
+            android:background="?android:attr/listDivider" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

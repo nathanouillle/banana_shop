@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+
+    <ImageView
+        android:id="@+id/image_view_product"
+        android:layout_width="64dp"
+        android:layout_height="53dp"
+        app:srcCompat="@drawable/minions" />
+
+    <TextView
+        android:id="@+id/text_view_product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/black"
+        tools:text="Banana"
+        android:layout_toEndOf="@id/image_view_product"/>
+
+    <TextView
+        android:id="@+id/text_view_product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="end"
+        android:text="TextView"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/text_devise"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1"
+        android:layout_toStartOf="@+id/text_devise"
+        />
+
+    <TextView
+        android:id="@+id/text_devise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="€"
+        android:textColor="@color/black"
+        android:layout_alignParentRight="true"
+        />
+
+
+</RelativeLayout>

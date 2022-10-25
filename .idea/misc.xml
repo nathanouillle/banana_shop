@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.141" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/drawable/ic_cart_black_24dp.xml" value="0.141" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.141" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.141" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/drawable/ic_launcher_background.xml" value="0.141" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.141" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/activity_forgot_password.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/activity_main.xml" value="0.16145833333333334" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/activity_menu.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/activity_product_list.xml" value="0.18674698795180722" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/activity_register.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/fragment_cart.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/fragment_dashboard.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/fragment_forgot_password.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/fragment_notifications.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/fragment_product_list.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/fragment_profil.xml" value="0.144017094017094" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/fragment_promoted_product_list.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/host_login_fragment.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/item_horizontal_view_product.xml" value="0.22" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/item_view_product.xml" value="0.4912536443148688" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/layout/item_view_product_title.xml" value="0.1" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Desktop/Kotlin/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.12790697674418605" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/activity_forgot_password.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/activity_login.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/activity_menu.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/activity_pay.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/activity_register.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/activity_splash.xml" value="0.15185185185185185" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/fragment_cart.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/fragment_home.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/fragment_product_description.xml" value="0.22" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/fragment_product_list.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/fragment_profil.xml" value="0.22" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/item_view_product.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/item_view_product_title.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1355" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/drawable/circle.xml" value="0.1275" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/activity_login.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/activity_menu.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/activity_register.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/fragment_cart.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/fragment_home.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/fragment_order_details.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/fragment_order_list.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/fragment_order_products_list.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/fragment_product_description.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/fragment_product_list.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/fragment_profil.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/fragment_promoted_product_list.xml" value="0.22" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/item_view_order.xml" value="0.5" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/item_view_product.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/layout/item_view_product_order.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Kotlin/app/src/main/res/menu/bottom_nav_menu.xml" value="0.17552083333333332" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

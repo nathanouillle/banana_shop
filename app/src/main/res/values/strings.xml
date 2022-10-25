@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Banana Shop</string>
+    <string name="app_slogan">Online Purchases</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_login">Log in</string>
+    <string name="help_password">Forgot Password</string>
+    <string name="new_user">New here?</string>
+
+    <!-- Strings related to password forgotten -->
+    <string name="indication_initialization_password">Please enter your email and your new password </string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="action_reset_password">Reset Password</string>
+
+    <!-- Strings related to register -->
+    <string name="indication_register">Please enter your information</string>
+    <string name="prompt_firstname">First Name</string>
+    <string name="prompt_lastname">Last Name</string>
+    <string name="prompt_address">Address</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="action_take_picture">Take picture</string>
+    <string name="permission_result_pending">Waiting></string>
+
+    <!-- Strings related to menu navigation -->
+    <string name="title_home">Home</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_profil">Profil</string>
+    <string name="title_promoted">Promoted Products</string>
+    <string name="title_category">Categories</string>
+
+    <!-- String related to grid layout -->
+    <string name="title_product">Products</string>
+    <string name="price">%1s!€</string>
+
+    <!-- String related to Profil -->
+    <string name="title_my_orders">My Orders</string>
+    <string name="title_my_information">My Information</string>
+    <string name="title_my_email">Email: </string>
+    <string name="title_my_address">Address: </string>
+    <string name="title_my_phone">Phone: </string>
+    <string name="prompt_items">items -</string>
+    <string name="title_customization">Customization</string>
+    <string name="title_category_disposition">Number of categories to show: </string>
+    <string name="title_product_disposition">Number of products to show: </string>
+
+    <!-- String related to Product detail -->
+    <string name="action_add_to_cart">Add</string>
+    <string name="title_descrption">Description</string>
+
+    <!-- String related to Order detail -->
+    <string name="title_price">Total: </string>
+    <string name="title_detail">Detail</string>
+
+    <!-- String related to Cart -->
+    <string name="title_my_cart">My Cart</string>
+    <string name="action_pay">Pay</string>
+
+
+</resources>
