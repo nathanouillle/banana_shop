@@ -1,4 +1,4 @@
-package com.example.onlinepurchase.activity
+package com.example.onlinepurchase.activity.activity
 
 import android.Manifest
 import android.content.Intent

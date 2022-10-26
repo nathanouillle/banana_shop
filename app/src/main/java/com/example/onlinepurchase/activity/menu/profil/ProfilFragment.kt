@@ -62,7 +62,6 @@ class ProfilFragment : Fragment() {
         categoryOption.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 numberOfCategories = options[p2]
-                Log.i("getter", "onItemSelected: $numberOfCategories")
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }

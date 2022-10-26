@@ -1,4 +1,4 @@
-package com.example.onlinepurchase.activity
+package com.example.onlinepurchase.activity.activity
 
 import android.os.Bundle
 import android.widget.Toast
@@ -23,18 +23,18 @@ class LoginActivity : AppCompatActivity() {
             if(username.isNotBlank() && password.isNotBlank()) {
                 //Try to connect
                 Toast.makeText(baseContext, "Welcome $username!", Toast.LENGTH_LONG).show()
-                startActivity(Intent(this,MenuActivity::class.java))
+                startActivity(Intent(this, MenuActivity::class.java))
             } else {
                 Toast.makeText(baseContext, "Complete all fields", Toast.LENGTH_LONG).show()
             }
         }
 
         binding.forgotPassword.setOnClickListener {
-            startActivity(Intent(this,ForgotPasswordActivity::class.java))
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
 
         binding.register.setOnClickListener {
-            startActivity(Intent(this,RegisterActivity::class.java))
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 }

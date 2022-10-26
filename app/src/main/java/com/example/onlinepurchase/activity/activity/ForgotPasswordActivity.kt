@@ -1,4 +1,4 @@
-package com.example.onlinepurchase.activity
+package com.example.onlinepurchase.activity.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

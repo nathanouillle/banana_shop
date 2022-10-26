@@ -1,4 +1,4 @@
-package com.example.onlinepurchase.activity
+package com.example.onlinepurchase.activity.activity
 
 import android.os.Bundle
 import android.os.Handler
@@ -16,7 +16,7 @@ class SplashActivity : AppCompatActivity() {
 
         handler = Handler()
         handler.postDelayed({
-            val intent = Intent(this,LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         },3000)
     }

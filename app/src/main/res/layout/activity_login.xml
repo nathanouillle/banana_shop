@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/horizontal_margin"
     android:layout_marginEnd="@dimen/horizontal_margin"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.activity.LoginActivity">
 
 
     <EditText

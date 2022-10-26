@@ -17,7 +17,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.activity.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait" >
@@ -28,32 +28,32 @@
         </activity>
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.activity.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.MenuActivity"
+            android:name=".activity.activity.MenuActivity"
             android:exported="false"
             android:label="@string/title_activity_menu"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.ForgotPasswordActivity"
+            android:name=".activity.activity.ForgotPasswordActivity"
             android:exported="true"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.LoginActivity" />
+                android:value=".activity.activity.LoginActivity" />
         </activity>
 
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".activity.activity.RegisterActivity"
             android:exported="true"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.LoginActivity" />
+                android:value=".activity.activity.LoginActivity" />
         </activity>
 
     </application>
