@@ -1,7 +1,7 @@
 package com.example.onlinepurchase.activity.menu.profil
 
-import android.util.Log
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.view.ViewGroup
@@ -15,15 +15,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.onlinepurchase.activity.data.*
 import com.example.onlinepurchase.databinding.FragmentProfilBinding
 
-val options = listOf(1,2,3)
-var numberOfCategories = 3
-var numberOfProducts = 3
+
 
 class ProfilFragment : Fragment() {
 
+    private var numberOfCategories = 3
+    private var numberOfProducts = 3
     private var _binding: FragmentProfilBinding? = null
     private lateinit var categoryOption: Spinner
     private lateinit var productOption: Spinner
+    private val options = listOf(1,2,3)
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -61,6 +62,7 @@ class ProfilFragment : Fragment() {
         categoryOption.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 numberOfCategories = options[p2]
+                Log.i("getter", "onItemSelected: $numberOfCategories")
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
@@ -74,7 +76,6 @@ class ProfilFragment : Fragment() {
         productOption.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 numberOfProducts = options[p2]
-                Log.i("TEST", "onItemSelected: $numberOfProducts")
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}

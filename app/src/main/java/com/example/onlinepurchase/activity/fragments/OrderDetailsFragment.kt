@@ -14,10 +14,12 @@ import com.example.onlinepurchase.activity.data.ordersList
 import com.example.onlinepurchase.databinding.FragmentOrderDetailsBinding
 import com.example.onlinepurchase.activity.orderDetailRecyclerView.OrderDetailListAdapter
 
-const val datePattern = "EEEE dd MMMM, yyyy"
-val simpleDateFormat = SimpleDateFormat(datePattern)
+
 
 class OrderDetailsFragment : Fragment() {
+
+    private val datePattern = "EEEE dd MMMM, yyyy"
+    private val simpleDateFormat = SimpleDateFormat(datePattern)
 
     private lateinit var binding: FragmentOrderDetailsBinding
     private val args: OrderDetailsFragmentArgs by navArgs()
@@ -44,7 +46,6 @@ class OrderDetailsFragment : Fragment() {
         if(binding.orderProductListDetails is RecyclerView) {
             with(binding.orderProductListDetails) {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-                //val orderedProducts = order?.products
                 adapter = order?.products?.let { OrderDetailListAdapter(it) }
             }
         }

@@ -43,9 +43,6 @@
         <action
             android:id="@+id/action_productListFragment_to_productDescriptionFragment"
             app:destination="@id/productDescriptionFragment" />
-        <action
-            android:id="@+id/action_productListFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/productDescriptionFragment"
@@ -54,12 +51,6 @@
         <argument
             android:name="productID"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_productDescriptionFragment_to_productListFragment"
-            app:destination="@id/productListFragment" />
-        <action
-            android:id="@+id/action_productDescriptionFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
     </fragment>
 
     <fragment

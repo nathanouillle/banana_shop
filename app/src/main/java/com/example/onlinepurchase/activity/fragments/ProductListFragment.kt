@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.data.productsList
-import com.example.onlinepurchase.activity.menu.profil.numberOfProducts
+import com.example.onlinepurchase.activity.menu.profil.ProfilFragment
 import com.example.onlinepurchase.activity.productRecyclerView.ProductListAdapter
 import com.example.onlinepurchase.activity.productRecyclerView.ProductClickListener
+import kotlinx.android.synthetic.main.fragment_product_description.*
 
 class ProductListFragment : Fragment(), ProductClickListener{
 
@@ -37,10 +38,11 @@ class ProductListFragment : Fragment(), ProductClickListener{
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_product_list, container, false)
 
+        //val profil = ProfilFragment()
         // Call the adapter
         if(view is RecyclerView) {
             with(view) {
-                layoutManager = GridLayoutManager(context,numberOfProducts)
+                layoutManager = GridLayoutManager(context,3)
                 adapter = ProductListAdapter(productsList.filter { it.type==2  && it.category==categoryToShow},clickListener)
             }
         }
