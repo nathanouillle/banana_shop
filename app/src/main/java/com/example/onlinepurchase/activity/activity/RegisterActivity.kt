@@ -24,8 +24,9 @@ class RegisterActivity: AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             val data = result.data!!
             // -90°C rotation of the picture
+
             var bitmap = data.extras!!.get("data") as Bitmap
-            bitmap = rotateBitmap(bitmap,-90f)
+            //bitmap = rotateBitmap(bitmap,-90f)
             binding.imageViewPicture.setImageBitmap(bitmap)
         }
     }

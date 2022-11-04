@@ -41,17 +41,18 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_information" />
+        app:layout_constraintTop_toBottomOf="@+id/user_information"
+        app:layout_constraintBottom_toBottomOf="@+id/user_email"/>
 
-    <TextView
+    <EditText
         android:id="@+id/user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:layout_marginTop="@dimen/top_margin"
-        android:text=" nathan@gmail.com"
         app:layout_constraintStart_toEndOf="@id/title_email"
-        app:layout_constraintTop_toBottomOf="@+id/user_information" />
+        app:layout_constraintTop_toBottomOf="@+id/user_information"
+        tools:text="nathan@gmail.com"/>
 
     <TextView
         android:id="@+id/title_address"
@@ -63,16 +64,17 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_email" />
+        app:layout_constraintTop_toBottomOf="@+id/user_email"
+        app:layout_constraintBottom_toBottomOf="@+id/user_address"/>
 
-    <TextView
+    <EditText
         android:id="@+id/user_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text=" 67 plaza España"
         app:layout_constraintStart_toEndOf="@id/title_address"
-        app:layout_constraintTop_toBottomOf="@+id/user_email" />
+        app:layout_constraintTop_toBottomOf="@+id/user_email"
+        tools:text="567 Plaza España, Cordoba"/>
 
     <TextView
         android:id="@+id/title_phone"
@@ -84,14 +86,15 @@
         android:textStyle="bold"
         android:layout_marginStart="@dimen/horizontal_margin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_address" />
+        app:layout_constraintTop_toBottomOf="@+id/user_address"
+        app:layout_constraintBottom_toBottomOf="@+id/user_phone"/>
 
-    <TextView
+    <EditText
         android:id="@+id/user_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text=" +54 667 4 44 555 34"
+        tools:text=" +54 667 44 555 34"
         app:layout_constraintStart_toEndOf="@id/title_phone"
         app:layout_constraintTop_toBottomOf="@+id/user_address" />
 
@@ -127,7 +130,7 @@
         android:textSize="20sp"
         android:layout_marginStart="@dimen/horizontal_margin"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/title_phone" />
+        app:layout_constraintTop_toBottomOf="@id/user_phone" />
 
     <TextView
         android:id="@+id/title_category_disposition"

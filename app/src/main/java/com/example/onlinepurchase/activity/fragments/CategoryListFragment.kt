@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.data.productsList
 import com.example.onlinepurchase.activity.menu.profil.ProfilFragment
@@ -37,7 +38,7 @@ class CategoryListFragment: Fragment(),CategoryClickListener {
         // Call the adapter
         if(view is RecyclerView) {
             with(view) {
-                layoutManager = GridLayoutManager(context, 3)
+                layoutManager = GridLayoutManager(context, OnlinePurchase.preferences.getUserCategory())
                 adapter = CategoryListAdapter(productsList.filter { it.type==1 },clickListener)
             }
         }

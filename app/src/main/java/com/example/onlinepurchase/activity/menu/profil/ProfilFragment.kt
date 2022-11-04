@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import com.example.onlinepurchase.R
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.*
 import com.example.onlinepurchase.databinding.FragmentProfilBinding
 
@@ -19,8 +20,6 @@ import com.example.onlinepurchase.databinding.FragmentProfilBinding
 
 class ProfilFragment : Fragment() {
 
-    private var numberOfCategories = 3
-    private var numberOfProducts = 3
     private var _binding: FragmentProfilBinding? = null
     private lateinit var categoryOption: Spinner
     private lateinit var productOption: Spinner
@@ -49,6 +48,7 @@ class ProfilFragment : Fragment() {
         val profilViewModel =
             ViewModelProvider(this).get(ProfilViewModel::class.java)
 
+
         _binding = FragmentProfilBinding.inflate(inflater, container, false)
 
         val root: View = binding.root
@@ -57,11 +57,14 @@ class ProfilFragment : Fragment() {
         categoryOption = _binding!!.categorySpinner
         categoryOption.adapter =
             this.activity?.let { ArrayAdapter<Int>(it,android.R.layout.simple_spinner_item, options)}
-        categoryOption.setSelection(2)
+
+        categoryOption.setSelection(OnlinePurchase.preferences.getUserCategory()-1)
 
         categoryOption.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                numberOfCategories = options[p2]
+                //numberOfCategories = options[p2]
+                OnlinePurchase.preferences.setUserCategory(options[p2])
+
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
@@ -70,17 +73,38 @@ class ProfilFragment : Fragment() {
         productOption = _binding!!.productSpinner
         productOption.adapter =
             this.activity?.let { ArrayAdapter<Int>(it,android.R.layout.simple_spinner_item, options)}
-        productOption.setSelection(2)
+        productOption.setSelection(OnlinePurchase.preferences.getUserProduct()-1)
 
         productOption.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                numberOfProducts = options[p2]
+                //numberOfProducts = options[p2]
+                OnlinePurchase.preferences.setUserProduct(options[p2])
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
 
         return root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if(OnlinePurchase.preferences.getUserEmail().isNotBlank() || OnlinePurchase.preferences.getUserEmail().isNotEmpty()) {
+            _binding?.userEmail?.setText(OnlinePurchase.preferences.getUserEmail())
+        }
+        if(OnlinePurchase.preferences.getUserAddress().isNotBlank() || OnlinePurchase.preferences.getUserAddress().isNotEmpty()) {
+            _binding?.userAddress?.setText(OnlinePurchase.preferences.getUserAddress())
+        }
+        if(OnlinePurchase.preferences.getUserPhone().isNotBlank() || OnlinePurchase.preferences.getUserPhone().isNotEmpty()) {
+            _binding?.userPhone?.setText(OnlinePurchase.preferences.getUserPhone())
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        OnlinePurchase.preferences.setUserEmail(_binding?.userEmail?.text.toString())
+        OnlinePurchase.preferences.setUserAddress(_binding?.userAddress?.text.toString())
+        OnlinePurchase.preferences.setUserPhone(_binding?.userPhone?.text.toString())
     }
 
     override fun onDestroyView() {
