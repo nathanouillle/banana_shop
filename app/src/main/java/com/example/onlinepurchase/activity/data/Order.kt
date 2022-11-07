@@ -3,7 +3,7 @@ package com.example.onlinepurchase.activity.data
 import java.util.*
 
 var ordersList = mutableListOf<Order>()
-var lastID = 0
+private var lastID = 0
 
 data class Order(
     val products: List<Product>,

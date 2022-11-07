@@ -1,7 +1,6 @@
 package com.example.onlinepurchase.activity.menu.profil
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.view.ViewGroup

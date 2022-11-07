@@ -6,8 +6,10 @@ import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.onlinepurchase.activity.data.User
 import com.example.onlinepurchase.databinding.ActivityRegisterBinding
 
 class RegisterActivity: AppCompatActivity() {
@@ -39,6 +41,35 @@ class RegisterActivity: AppCompatActivity() {
         binding.actionTakePicture.setOnClickListener {
             //Ask for camera permission
             requestPermission.launch(Manifest.permission.CAMERA)
+        }
+
+        binding.signIn.setOnClickListener {
+            val userFirstName = binding.userfirstname.text.toString()
+            val userLastName = binding.userlastname.text.toString()
+            val userPhone = binding.userphone.text.toString()
+            val userAddress = binding.useraddress.text.toString()
+            val userPassword = binding.password.text.toString()
+            val userPassword2 = binding.password2.text.toString()
+            val userEmail = binding.useremail.text.toString()
+            val userPicture = binding.imageViewPicture
+            if(userFirstName.isNotBlank() && userLastName.isNotBlank() && userPhone.isNotBlank() && userAddress.isNotBlank() && userPassword.isNotBlank() && userPassword2.isNotBlank()) {
+                if( userPassword!=userPassword2) {
+                    Toast.makeText(baseContext, "The passwords doesn't match", Toast.LENGTH_LONG).show()
+                } else {
+                    val user = User(
+                        firstName = userFirstName,
+                        lastName = userLastName,
+                        phone = userPhone,
+                        address = userAddress,
+                        password = userPassword,
+                        email = userEmail,
+                        picture = userPicture
+                    )
+                    Toast.makeText(baseContext, "$user", Toast.LENGTH_LONG).show()
+                }
+            } else {
+                Toast.makeText(baseContext, "You need to fill all the fields", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
