@@ -1,4 +1,5 @@
 # Banana Shop
+<<<<<<< HEAD
   Banana Shop is a an online marketplace created for easy and efficient grocery shopping from the comfort of your home.
   
 ## To know
@@ -9,3 +10,6 @@
   
 # Enjoy!
 Nathan Nowakowski - IUA
+=======
+En cours
+>>>>>>> 7fbdc2c63998ca08af8afd68977b516e24e9d858

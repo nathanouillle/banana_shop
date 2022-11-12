@@ -1,6 +1,9 @@
 package com.example.onlinepurchase.activity.data
 
+import com.example.onlinepurchase.activity.database.ProductEntity
+
 var productsList = mutableListOf<Product>()
+
 
 data class Product(
 
@@ -14,7 +17,22 @@ data class Product(
     val id: Int? = productsList.size
 
     ) {
-    override fun toString(): String ="$category: $name, $price\n"
+    //override fun toString(): String ="$category: $name, $price\n"
+
+    companion object{
+        fun fromProductEntity(productEntity: ProductEntity): Product {
+            return Product(
+                name = productEntity.name,
+                description = productEntity.description,
+                price = productEntity.price,
+                cover = productEntity.cover,
+                promoted = productEntity.promoted,
+                type = productEntity.type,
+                category = productEntity.category,
+                id = productEntity.id
+            )
+        }
+    }
 }
     // Not able to parcelize Category which is a Enum
 /*: Parcelable {

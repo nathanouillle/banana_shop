@@ -4,11 +4,21 @@ import android.os.Bundle
 import android.widget.Toast
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.example.onlinepurchase.activity.OnlinePurchase
+import com.example.onlinepurchase.activity.database.ProductEntity
 import com.example.onlinepurchase.databinding.ActivityLoginBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+
+    val productListLiveData = MutableLiveData<List<ProductEntity>>()
+    val productByIdLiveData = MutableLiveData<ProductEntity>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

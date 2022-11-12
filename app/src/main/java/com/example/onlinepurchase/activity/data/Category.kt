@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 enum class Category(val id:Int):Parcelable {
 
-    Fruits(1), Vegetables(2), Meats(3), Morning(4);
+    Fruits(1), Vegetables(2), Meats(3), Morning(4), Drinks(5);
 
     constructor(parcel: Parcel) : this(parcel.readInt()) {
     }
