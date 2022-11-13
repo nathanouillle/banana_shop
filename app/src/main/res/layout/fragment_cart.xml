@@ -23,12 +23,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cart_product_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         android:orientation="vertical"
-        android:paddingBottom="30dp"
         android:scrollbars="vertical"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/title_cart"
+        app:layout_constraintBottom_toTopOf="@id/action_pay"
         tools:listitem="@layout/item_view_product_order"/>
 
 

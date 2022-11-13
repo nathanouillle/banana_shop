@@ -12,15 +12,23 @@ import com.example.onlinepurchase.R
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.data.Category
+import com.example.onlinepurchase.activity.data.User
+import com.example.onlinepurchase.activity.database.order.OrderEntity
 import com.example.onlinepurchase.databinding.FragmentCartBinding
 import com.example.onlinepurchase.activity.orderDetailRecyclerView.OrderDetailListAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlin.properties.Delegates
 
 class CartFragment : Fragment() {
 
-    private var cart = mutableListOf<Product>()
     private var _binding: FragmentCartBinding? = null
+    private var userID by Delegates.notNull<Int>()
+    private lateinit var user: User
+    private lateinit var cart: MutableList<Product>
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -28,10 +36,11 @@ class CartFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        try{
-            initCart()
-        }catch(e: Exception){
-            Toast.makeText(activity, "There has been a problem loading the cart, please try later", Toast.LENGTH_LONG).show()
+        // Get userID from menu activity
+        userID = requireActivity().intent.getIntExtra("userID", 0)
+        // Get user from database
+        runBlocking(Dispatchers.IO) {
+            user = OnlinePurchase.onlinePurchaseDatabase.userDao().getUserById(userID).toUser()
         }
     }
 
@@ -42,6 +51,7 @@ class CartFragment : Fragment() {
     ): View {
 
         _binding = FragmentCartBinding.inflate(inflater, container, false)
+        cart = OnlinePurchase.cart
 
         // Inflate the layout
         val cartPrice = computePrice(cart).toString()
@@ -59,7 +69,19 @@ class CartFragment : Fragment() {
 
         // Action Pay
         _binding!!.actionPay.setOnClickListener {
-            sendEmail(cartPrice)
+            //sendEmail(cartPrice)
+            runBlocking(Dispatchers.IO) {
+                val orderEntity = OrderEntity(
+                    userId = userID,
+                    products = cart,
+                    price = cartPrice.toDouble(),
+                    address = user.address
+                )
+                OnlinePurchase.onlinePurchaseDatabase.orderDao().addOrder(orderEntity)
+            }
+            cart.clear()
+            // If email was sent, add order to database
+
         }
 
         return binding.root
@@ -70,37 +92,36 @@ class CartFragment : Fragment() {
         _binding = null
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        cart.clear()
-    }
-
-    private fun initCart(): List<Product>{
-        cart.add(Product(name="Apple", description = "Green apple", price = 1.0,type=2, category = Category.Fruits, cover = R.drawable.green_apple))
-        cart.add(Product(name="Banana", description = "Very good banana", price = 1.5,type=2, promoted = true, category = Category.Fruits, cover = R.drawable.banana))
-        cart.add(Product(name="Beans", description = "Red beans", price = 1.0,type=2, category = Category.Vegetables, cover = R.drawable.beans))
-        cart.add(Product(name="Aubergine", description = "Very good aubergine", price = 1.5,type=2, promoted = true, category = Category.Vegetables, cover = R.drawable.aubergine))
-        return cart
-    }
-
-    private fun computePrice(data:List<Product>):Double {
-        var price:Double = 0.0
-        for(i in data) {
+    private fun computePrice(data: List<Product>): Double {
+        var price: Double = 0.0
+        for (i in data) {
             price += i.price!!
         }
         return price
     }
 
-    private fun sendEmail(cartPrice:String) {
+
+    private fun sendEmail(cartPrice: String) {
         val uriText = "mailto:banana.shop@gmail.com" +
-                "?subject=" + Uri.encode("Order") +
-                "&body=" + Uri.encode("Send to 67 plaza España\nProducts:\n $cart \n Total: $cartPrice€")
+                "?subject=" + Uri.encode("Order from ${user.firstName}") +
+                "&body=" + Uri.encode("${user.address}\nProducts:\n $cart \n Total: $cartPrice€")
         val email = Intent(Intent.ACTION_SENDTO)
         val uri = Uri.parse(uriText)
         email.data = uri
         try {
-            startActivity(Intent.createChooser(email,"Pay with..."))
-        }catch (e: Exception) {
+            startActivity(Intent.createChooser(email, "Pay with..."))
+            // Create an order in the database
+            /*runBlocking(Dispatchers.IO) {
+                val orderEntity = OrderEntity(
+                    userId = userID,
+                    products = cart,
+                    price = cartPrice.toDouble(),
+                    address = user.address
+                )
+                OnlinePurchase.onlinePurchaseDatabase.orderDao().addOrder(orderEntity)
+            }
+            cart.clear()*/
+        } catch (e: Exception) {
             Toast.makeText(activity, "Error, try later", Toast.LENGTH_LONG).show()
         }
     }

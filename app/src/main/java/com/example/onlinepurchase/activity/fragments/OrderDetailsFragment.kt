@@ -20,7 +20,6 @@ class OrderDetailsFragment : Fragment() {
 
     private val datePattern = "EEEE dd MMMM, yyyy"
     private val simpleDateFormat = SimpleDateFormat(datePattern)
-
     private lateinit var binding: FragmentOrderDetailsBinding
     private val args: OrderDetailsFragmentArgs by navArgs()
 

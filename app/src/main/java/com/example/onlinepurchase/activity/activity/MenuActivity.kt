@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.menu.profil.ProfilFragment
 import com.example.onlinepurchase.databinding.ActivityMenuBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,16 +39,6 @@ class MenuActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_cart, R.id.navigation_profil
             )
         )
-
-        // userID is passed to the profil fragment
-        val bundle = Bundle()
-        bundle.putInt("userID", userID)
-        val profilFragment = ProfilFragment()
-        profilFragment.arguments = bundle
-
-
-
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

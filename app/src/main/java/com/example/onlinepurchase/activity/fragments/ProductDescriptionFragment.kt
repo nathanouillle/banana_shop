@@ -1,6 +1,7 @@
 package com.example.onlinepurchase.activity.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.widget.Button
@@ -17,11 +18,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class ProductDescriptionFragment: Fragment() {
+class ProductDescriptionFragment : Fragment() {
 
     private lateinit var binding: FragmentProductDescriptionBinding
     private val args: ProductDescriptionFragmentArgs by navArgs()
     private lateinit var product: Product
+    //get cart from application
+    private var cart = OnlinePurchase.cart
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +35,9 @@ class ProductDescriptionFragment: Fragment() {
         val productID = args.productID
         runBlocking {
             launch(Dispatchers.IO) {
-                product = Product.fromProductEntity(OnlinePurchase.onlinePurchaseDatabase.productDao().getProductById(productID))
+                product = Product.fromProductEntity(
+                    OnlinePurchase.onlinePurchaseDatabase.productDao().getProductById(productID)
+                )
             }
         }
 
@@ -41,7 +46,7 @@ class ProductDescriptionFragment: Fragment() {
         binding = FragmentProductDescriptionBinding.inflate(layoutInflater, container, false)
 
         // Filling the fragment with the product
-        if(product!=null) {
+        if (product != null) {
             binding.textViewProductName.text = product.name
             binding.textDescription.text = product.description
             binding.textViewProductPrice.text = product.price.toString()
@@ -55,6 +60,8 @@ class ProductDescriptionFragment: Fragment() {
 
             add.setOnClickListener {
                 displayAddingViews(add, increment, decrement, numberTextView)
+                cart.add(product)
+                Log.d("Cart+", cart.toString())
 
                 // +
                 increment.setOnClickListener {
@@ -64,8 +71,10 @@ class ProductDescriptionFragment: Fragment() {
                 // -
                 decrement.setOnClickListener {
                     var currentNumber = Integer.parseInt(numberTextView.text.toString())
-                    if(currentNumber==1) {
-                        displayAddingViews(add,increment,decrement,numberTextView)
+                    cart.remove(product)
+                    Log.d("Cart-", cart.toString())
+                    if (currentNumber == 1) {
+                        displayAddingViews(add, increment, decrement, numberTextView)
                     } else {
                         --currentNumber
                         numberTextView.text = currentNumber.toString()
@@ -77,13 +86,18 @@ class ProductDescriptionFragment: Fragment() {
         return binding.root
     }
 
-    private fun displayAddingViews(add: Button, increment: Button, decrement: Button, numberTextView: TextView){
-        if(add.visibility==View.VISIBLE) {
+    private fun displayAddingViews(
+        add: Button,
+        increment: Button,
+        decrement: Button,
+        numberTextView: TextView
+    ) {
+        if (add.visibility == View.VISIBLE) {
             add.visibility = View.INVISIBLE
             increment.visibility = View.VISIBLE
             decrement.visibility = View.VISIBLE
             numberTextView.visibility = View.VISIBLE
-        } else{
+        } else {
             add.visibility = View.VISIBLE
             increment.visibility = View.INVISIBLE
             decrement.visibility = View.INVISIBLE
@@ -91,11 +105,13 @@ class ProductDescriptionFragment: Fragment() {
         }
     }
 
-    private fun incrementCart(number: CharSequence): CharSequence{
+    private fun incrementCart(number: CharSequence): CharSequence {
         var currentNumber = Integer.parseInt(number.toString())
-        if(currentNumber<10) {
+        if (currentNumber < 10) {
             ++currentNumber
-        } else{
+            cart.add(product)
+            Log.d("Cart+", cart.toString())
+        } else {
             Toast.makeText(activity, "You can't add more than 10 items", Toast.LENGTH_LONG).show()
         }
         return currentNumber.toString()

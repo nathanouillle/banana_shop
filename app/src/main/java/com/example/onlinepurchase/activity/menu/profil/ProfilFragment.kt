@@ -1,5 +1,6 @@
 package com.example.onlinepurchase.activity.menu.profil
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,9 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.*
+import com.example.onlinepurchase.activity.database.order.OrderEntity
 import com.example.onlinepurchase.databinding.FragmentProfilBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import java.util.*
 import kotlin.properties.Delegates
 
 
@@ -43,6 +46,8 @@ class ProfilFragment : Fragment() {
             user = OnlinePurchase.onlinePurchaseDatabase.userDao().getUserById(userID).toUser()
         }
 
+        createOrder()
+
         //Populate the orders
         try {
             initOrders()
@@ -62,6 +67,8 @@ class ProfilFragment : Fragment() {
         val root: View = binding.root
 
         _binding!!.titleProfil.text = user.firstName + "\n" + user.lastName
+        val picture = user.picture?.let { BitmapFactory.decodeByteArray(user.picture, 0, it.size) }
+        _binding!!.imageViewPicture.setImageBitmap(picture)
 
         // Category Spinner
         categoryOption = _binding!!.categorySpinner
@@ -106,6 +113,15 @@ class ProfilFragment : Fragment() {
 
         return root
     }
+    override fun onResume() {
+        super.onResume()
+        runBlocking(Dispatchers.IO) {
+            user = OnlinePurchase.onlinePurchaseDatabase.userDao().getUserById(userID).toUser()
+        }
+        _binding?.userEmail?.setText(user.email)
+        _binding?.userAddress?.setText(user.address)
+        _binding?.userPhone?.setText(user.phone)
+    }
 
     override fun onPause() {
         super.onPause()
@@ -128,16 +144,6 @@ class ProfilFragment : Fragment() {
                 OnlinePurchase.onlinePurchaseDatabase.userDao().updateUserPhone(userID, phone)
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        runBlocking(Dispatchers.IO) {
-            user = OnlinePurchase.onlinePurchaseDatabase.userDao().getUserById(userID).toUser()
-        }
-        _binding?.userEmail?.setText(user.email)
-        _binding?.userAddress?.setText(user.address)
-        _binding?.userPhone?.setText(user.phone)
     }
 
     override fun onDestroyView() {
@@ -270,6 +276,54 @@ class ProfilFragment : Fragment() {
         ordersList.add(order2)
         ordersList.add(order3)
         ordersList.add(order4)
+    }
+
+    private fun createOrder() {
+        val products = listOf<Product>(
+            Product(
+                name = "Aubergine",
+                description = "Very good aubergine",
+                price = 1.5,
+                type = 2,
+                promoted = true,
+                category = Category.Vegetables,
+                cover = R.drawable.aubergine
+            ),
+            Product(
+                name = "Strawberry",
+                description = "Yummy",
+                price = 3.0,
+                type = 2,
+                category = Category.Fruits,
+                cover = R.drawable.strawberry
+            ),
+            Product(
+                name = "Beans",
+                description = "Red beans",
+                price = 1.0,
+                type = 2,
+                category = Category.Vegetables,
+                cover = R.drawable.beans
+            ),
+            Product(
+                name = "Banana",
+                description = "Very good banana",
+                price = 1.5,
+                type = 2,
+                promoted = true,
+                category = Category.Fruits,
+                cover = R.drawable.banana
+            )
+        )
+        val order = OrderEntity(
+            userId = userID,
+            address = user.address,
+            products = products,
+            price = 8.9
+        )
+        runBlocking(Dispatchers.IO) {
+            OnlinePurchase.onlinePurchaseDatabase.orderDao().addOrder(order)
+        }
     }
 }
 
