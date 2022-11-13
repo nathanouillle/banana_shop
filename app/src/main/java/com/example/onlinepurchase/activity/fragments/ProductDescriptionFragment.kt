@@ -9,14 +9,19 @@ import android.widget.TextView
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.data.productsList
 import com.example.onlinepurchase.databinding.FragmentProductDescriptionBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class ProductDescriptionFragment: Fragment() {
 
     private lateinit var binding: FragmentProductDescriptionBinding
     private val args: ProductDescriptionFragmentArgs by navArgs()
+    private lateinit var product: Product
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,10 +30,15 @@ class ProductDescriptionFragment: Fragment() {
 
         // Retrieve the product to show
         val productID = args.productID
-        val product = productFromID(productID)
+        runBlocking {
+            launch(Dispatchers.IO) {
+                product = Product.fromProductEntity(OnlinePurchase.onlinePurchaseDatabase.productDao().getProductById(productID))
+            }
+        }
+
 
         // Inflate the layout for this fragment
-        val binding = FragmentProductDescriptionBinding.inflate(layoutInflater, container, false)
+        binding = FragmentProductDescriptionBinding.inflate(layoutInflater, container, false)
 
         // Filling the fragment with the product
         if(product!=null) {
@@ -64,17 +74,7 @@ class ProductDescriptionFragment: Fragment() {
             }
         }
 
-
         return binding.root
-    }
-
-    private fun productFromID(productID: Int): Product? {
-        for(product in productsList)
-        {
-            if(product.id == productID)
-                return product
-        }
-        return null
     }
 
     private fun displayAddingViews(add: Button, increment: Button, decrement: Button, numberTextView: TextView){

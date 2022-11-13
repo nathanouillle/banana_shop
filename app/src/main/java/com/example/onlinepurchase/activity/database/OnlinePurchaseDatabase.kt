@@ -1,21 +1,31 @@
 package com.example.onlinepurchase.activity.database
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.onlinepurchase.activity.OnlinePurchase
+import com.example.onlinepurchase.activity.database.product.ProductDao
+import com.example.onlinepurchase.activity.database.product.ProductEntity
+import com.example.onlinepurchase.activity.database.user.MIGRATION_1_2
+import com.example.onlinepurchase.activity.database.user.UserDao
+import com.example.onlinepurchase.activity.database.user.UserEntity
 
 
-@Database(entities = [ProductEntity::class], version = 1)
+
+@Database(entities = [ProductEntity::class, UserEntity::class], version = 2, exportSchema = true)
 abstract class OnlinePurchaseDatabase: RoomDatabase() {
 
     abstract fun productDao(): ProductDao
+    abstract fun userDao(): UserDao
 
     companion object {
         val roomDatabase: OnlinePurchaseDatabase = Room.databaseBuilder(
             OnlinePurchase.onlinePurchaseContext,
             OnlinePurchaseDatabase::class.java,
             "OnlinePurchaseDatabase"
-        ).build()
+        )
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
 }

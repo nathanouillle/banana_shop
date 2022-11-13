@@ -1,5 +1,6 @@
 package com.example.onlinepurchase.activity.data
 
+import android.graphics.Bitmap
 import android.widget.ImageView
 
 data class User(
@@ -9,5 +10,5 @@ data class User(
     val phone: String,
     val email: String,
     val password: String,
-    val picture: ImageView
+    val picture: ByteArray? = null
 )

@@ -1,6 +1,6 @@
 package com.example.onlinepurchase.activity.data
 
-import com.example.onlinepurchase.activity.database.ProductEntity
+import com.example.onlinepurchase.activity.database.product.ProductEntity
 
 var productsList = mutableListOf<Product>()
 
@@ -17,7 +17,7 @@ data class Product(
     val id: Int? = productsList.size
 
     ) {
-    //override fun toString(): String ="$category: $name, $price\n"
+    override fun toString(): String ="$category: $name, $price\n"
 
     companion object{
         fun fromProductEntity(productEntity: ProductEntity): Product {

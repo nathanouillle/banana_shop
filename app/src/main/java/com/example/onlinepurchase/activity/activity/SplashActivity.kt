@@ -3,14 +3,14 @@ package com.example.onlinepurchase.activity.activity
 import android.os.Bundle
 import android.os.Handler
 import android.content.Intent
+import kotlinx.coroutines.launch
 import com.example.onlinepurchase.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import androidx.appcompat.app.AppCompatActivity
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Category
-import com.example.onlinepurchase.activity.database.ProductEntity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import com.example.onlinepurchase.activity.database.product.ProductEntity
 
 class SplashActivity : AppCompatActivity() {
 

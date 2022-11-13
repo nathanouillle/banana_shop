@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.onlinepurchase.activity.data.User
 import com.example.onlinepurchase.databinding.ActivityRegisterBinding
+import java.io.ByteArrayOutputStream
 
 class RegisterActivity: AppCompatActivity() {
 
@@ -51,7 +53,11 @@ class RegisterActivity: AppCompatActivity() {
             val userPassword = binding.password.text.toString()
             val userPassword2 = binding.password2.text.toString()
             val userEmail = binding.useremail.text.toString()
-            val userPicture = binding.imageViewPicture
+            val bitmap = (binding.imageViewPicture.drawable as BitmapDrawable).bitmap
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            val userPicture = stream.toByteArray()
+
             if(userFirstName.isNotBlank() && userLastName.isNotBlank() && userPhone.isNotBlank() && userAddress.isNotBlank() && userPassword.isNotBlank() && userPassword2.isNotBlank()) {
                 if( userPassword!=userPassword2) {
                     Toast.makeText(baseContext, "The passwords doesn't match", Toast.LENGTH_LONG).show()

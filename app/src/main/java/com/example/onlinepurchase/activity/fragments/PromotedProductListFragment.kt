@@ -1,31 +1,28 @@
 package com.example.onlinepurchase.activity.fragments
 
-import android.content.Context
+
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.lifecycle.map
 import android.view.ViewGroup
+import kotlinx.coroutines.launch
 import android.view.LayoutInflater
+import androidx.lifecycle.Observer
 import com.example.onlinepurchase.R
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.map
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Product
-import com.example.onlinepurchase.activity.data.Product.Companion.fromProductEntity
-import com.example.onlinepurchase.activity.data.productsList
-import com.example.onlinepurchase.activity.database.ProductEntity
+import com.example.onlinepurchase.activity.OnlinePurchase
+import com.example.onlinepurchase.activity.database.product.ProductEntity
 import com.example.onlinepurchase.activity.menu.home.HomeFragmentDirections
 import com.example.onlinepurchase.activity.productRecyclerView.ProductListAdapter
 import com.example.onlinepurchase.activity.productRecyclerView.ProductClickListener
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-
+import com.example.onlinepurchase.activity.data.Product.Companion.fromProductEntity
 
 class PromotedProductListFragment: Fragment(), ProductClickListener{
 
@@ -36,6 +33,9 @@ class PromotedProductListFragment: Fragment(), ProductClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         clickListener=this
+
+        // Get promoted products from database
+        getPromotedProducts()
     }
 
     override fun onCreateView(
@@ -45,9 +45,6 @@ class PromotedProductListFragment: Fragment(), ProductClickListener{
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_promoted_product_list, container, false)
-
-        // Get promoted products from database
-        getPromotedProducts()
 
         // Convert ProductEntity to Product to show in the recycler view
         promotedProductsEntity.map {
@@ -84,7 +81,6 @@ class PromotedProductListFragment: Fragment(), ProductClickListener{
     private fun getPromotedProducts(){
         runBlocking {
             launch(Dispatchers.IO) {
-                Log.d("Thread","get      : I'm working in thread ${Thread.currentThread().name}")
                 val list = OnlinePurchase.onlinePurchaseDatabase.productDao().getPromotedProducts()
                 promotedProductsEntity.postValue(list)
             }

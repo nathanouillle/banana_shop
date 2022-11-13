@@ -88,6 +88,7 @@ class ProfilFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        /*
         if(OnlinePurchase.preferences.getUserEmail().isNotBlank() || OnlinePurchase.preferences.getUserEmail().isNotEmpty()) {
             _binding?.userEmail?.setText(OnlinePurchase.preferences.getUserEmail())
         }
@@ -96,14 +97,15 @@ class ProfilFragment : Fragment() {
         }
         if(OnlinePurchase.preferences.getUserPhone().isNotBlank() || OnlinePurchase.preferences.getUserPhone().isNotEmpty()) {
             _binding?.userPhone?.setText(OnlinePurchase.preferences.getUserPhone())
-        }
+        }*/
     }
 
     override fun onResume() {
         super.onResume()
+        /*
         OnlinePurchase.preferences.setUserEmail(_binding?.userEmail?.text.toString())
         OnlinePurchase.preferences.setUserAddress(_binding?.userAddress?.text.toString())
-        OnlinePurchase.preferences.setUserPhone(_binding?.userPhone?.text.toString())
+        OnlinePurchase.preferences.setUserPhone(_binding?.userPhone?.text.toString())*/
     }
 
     override fun onDestroyView() {
