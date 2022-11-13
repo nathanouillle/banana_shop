@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.widget.Toast
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.databinding.ActivityLoginBinding
+import kotlinx.coroutines.runBlocking
 
 class LoginActivity : AppCompatActivity() {
 
@@ -21,9 +23,19 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.password.text.toString()
 
             if(username.isNotBlank() && password.isNotBlank()) {
-                //Try to connect
-                Toast.makeText(baseContext, "Welcome $username!", Toast.LENGTH_LONG).show()
-                startActivity(Intent(this, MenuActivity::class.java))
+                // Search for user in database
+                runBlocking { // runBlocking is used to wait for the result of the coroutine
+                    val user = OnlinePurchase.onlinePurchaseDatabase.userDao().connectUser(username, password)
+                    if(user != null) {
+                        // User found
+                        val intent = Intent(this@LoginActivity, MenuActivity::class.java)
+                        intent.putExtra("userID", user.id)
+                        startActivity(intent)
+                    } else {
+                        // User not found
+                        Toast.makeText(this@LoginActivity, "User not found", Toast.LENGTH_SHORT).show()
+                    }
+                }
             } else {
                 Toast.makeText(baseContext, "Complete all fields", Toast.LENGTH_LONG).show()
             }

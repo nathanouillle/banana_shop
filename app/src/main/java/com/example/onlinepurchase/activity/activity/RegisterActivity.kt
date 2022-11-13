@@ -10,30 +10,38 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
+import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.User
+import com.example.onlinepurchase.activity.database.user.UserEntity
 import com.example.onlinepurchase.databinding.ActivityRegisterBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.ByteArrayOutputStream
 
-class RegisterActivity: AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
 
     // Asking permission to take a picture
-    private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-        granted->onPermissionResult(granted)
-    }
+    private val requestPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            onPermissionResult(granted)
+        }
 
     // Taking a picture
-    private val openCamera = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            val data = result.data!!
-            // -90°C rotation of the picture
+    private val openCamera =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data!!
+                // -90°C rotation of the picture
 
-            var bitmap = data.extras!!.get("data") as Bitmap
-            //bitmap = rotateBitmap(bitmap,-90f)
-            binding.imageViewPicture.setImageBitmap(bitmap)
+                val bitmap = data.extras!!.get("data") as Bitmap
+                //bitmap = rotateBitmap(bitmap,-90f)
+                binding.imageViewPicture.setImageBitmap(bitmap)
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,38 +61,63 @@ class RegisterActivity: AppCompatActivity() {
             val userPassword = binding.password.text.toString()
             val userPassword2 = binding.password2.text.toString()
             val userEmail = binding.useremail.text.toString()
-            val bitmap = (binding.imageViewPicture.drawable as BitmapDrawable).bitmap
-            val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            val userPicture = stream.toByteArray()
 
-            if(userFirstName.isNotBlank() && userLastName.isNotBlank() && userPhone.isNotBlank() && userAddress.isNotBlank() && userPassword.isNotBlank() && userPassword2.isNotBlank()) {
-                if( userPassword!=userPassword2) {
-                    Toast.makeText(baseContext, "The passwords doesn't match", Toast.LENGTH_LONG).show()
-                } else {
-                    val user = User(
-                        firstName = userFirstName,
-                        lastName = userLastName,
-                        phone = userPhone,
-                        address = userAddress,
-                        password = userPassword,
-                        email = userEmail,
-                        picture = userPicture
-                    )
-                    Toast.makeText(baseContext, "$user", Toast.LENGTH_LONG).show()
-                }
+            // Check if the user has entered all the fields
+            if (userFirstName.isBlank() || userLastName.isBlank() || userPhone.isBlank() || userAddress.isBlank() || userPassword.isBlank() || userPassword2.isBlank() || userEmail.isBlank()) {
+                Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(baseContext, "You need to fill all the fields", Toast.LENGTH_LONG).show()
+                // Image compression
+                val imageview = binding.imageViewPicture
+                val drawable = imageview.drawable
+                val bitmap = (drawable as BitmapDrawable).bitmap
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                val byteArray = stream.toByteArray()
+
+                val user = User(
+                    userFirstName,
+                    userLastName,
+                    userAddress,
+                    userPhone,
+                    userEmail,
+                    userPassword,
+                    byteArray
+                )
+                // Check if the passwords are the same
+                if (userPassword == userPassword2) {
+                    // Check if the user is already in the database
+                    val userDatabase: UserEntity? = runBlocking(Dispatchers.IO) {
+                        OnlinePurchase.onlinePurchaseDatabase.userDao().getUserByEmail(userEmail)
+                    }
+                    if (userDatabase == null) {
+                        // Add the user to the database
+                        runBlocking {
+                            launch(Dispatchers.IO) {
+                                OnlinePurchase.onlinePurchaseDatabase.userDao()
+                                    .addUser(user.toUserEntity())
+                            }
+                        }
+                        // Go to the login activity
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this, "This email is already used", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                } else {
+                    Toast.makeText(this, "The passwords are not the same", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
     }
 
     private fun onPermissionResult(result: Boolean) {
-        if(result) {
+        if (result) {
             binding.permissionResult.text = "Granted"
             // If permission Granted -> We take the picture
             openCamera.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
-        } else{
+        } else {
             binding.permissionResult.text = "Not Granted"
         }
     }

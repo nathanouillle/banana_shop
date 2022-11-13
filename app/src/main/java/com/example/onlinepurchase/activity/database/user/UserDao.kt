@@ -5,13 +5,16 @@ import androidx.room.*
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-     suspend fun insertUser(userEntity: UserEntity)
+     suspend fun addUser(userEntity: UserEntity)
 
     @Delete
      suspend fun deleteUser(userEntity: UserEntity)
 
     @Query("SELECT * from user_table WHERE id = :id")
      suspend fun getUserById(id: Int): UserEntity
+
+    @Query("SELECT * from user_table WHERE email = :email")
+     suspend fun getUserByEmail(email: String): UserEntity
 
     @Query("SELECT * from user_table WHERE email = :email AND password = :password")
      suspend fun connectUser(email: String, password: String): UserEntity

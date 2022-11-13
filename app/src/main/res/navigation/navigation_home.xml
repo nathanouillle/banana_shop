@@ -32,6 +32,10 @@
         <action
             android:id="@+id/action_navigation_profil_to_orderDetailsFragment"
             app:destination="@id/orderDetailsFragment" />
+        <argument
+            android:name="userID"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/productListFragment"

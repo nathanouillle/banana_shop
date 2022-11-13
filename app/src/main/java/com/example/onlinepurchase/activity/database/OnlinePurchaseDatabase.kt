@@ -8,12 +8,13 @@ import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.database.product.ProductDao
 import com.example.onlinepurchase.activity.database.product.ProductEntity
 import com.example.onlinepurchase.activity.database.user.MIGRATION_1_2
+import com.example.onlinepurchase.activity.database.user.MIGRATION_2_3
 import com.example.onlinepurchase.activity.database.user.UserDao
 import com.example.onlinepurchase.activity.database.user.UserEntity
 
 
 
-@Database(entities = [ProductEntity::class, UserEntity::class], version = 2, exportSchema = true)
+@Database(entities = [ProductEntity::class, UserEntity::class], version = 3, exportSchema = true)
 abstract class OnlinePurchaseDatabase: RoomDatabase() {
 
     abstract fun productDao(): ProductDao
@@ -25,7 +26,7 @@ abstract class OnlinePurchaseDatabase: RoomDatabase() {
             OnlinePurchaseDatabase::class.java,
             "OnlinePurchaseDatabase"
         )
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
     }
 }
