@@ -30,6 +30,7 @@ class ProfilFragment : Fragment() {
     private val options = listOf(1, 2, 3)
     private lateinit var user: User
     private var userID by Delegates.notNull<Int>()
+    private lateinit var orders: List<Order>
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -45,16 +46,6 @@ class ProfilFragment : Fragment() {
         runBlocking(Dispatchers.IO) {
             user = OnlinePurchase.onlinePurchaseDatabase.userDao().getUserById(userID).toUser()
         }
-
-        createOrder()
-
-        //Populate the orders
-        try {
-            initOrders()
-        } catch (e: Exception) {
-            Toast.makeText(
-                activity, "There has been a problem loading the orders, please try later", Toast.LENGTH_LONG).show()
-        }
     }
 
     override fun onCreateView(
@@ -66,6 +57,7 @@ class ProfilFragment : Fragment() {
         _binding = FragmentProfilBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // Filling the profil
         _binding!!.titleProfil.text = user.firstName + "\n" + user.lastName
         val picture = user.picture?.let { BitmapFactory.decodeByteArray(user.picture, 0, it.size) }
         _binding!!.imageViewPicture.setImageBitmap(picture)

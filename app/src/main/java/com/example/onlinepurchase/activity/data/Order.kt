@@ -1,5 +1,6 @@
 package com.example.onlinepurchase.activity.data
 
+import com.example.onlinepurchase.activity.database.order.OrderEntity
 import java.util.*
 
 var ordersList = mutableListOf<Order>()
@@ -13,15 +14,17 @@ data class Order(
     val address: String,
     val id: Int = lastID++
 ) {
-    override fun toString(): String {
-        var display = "Order date: $date\n" +
-                "Send to $address\n" +
-                "Product list:\n"
-        for(product in products) {
-            display += "$product\n"
+    companion object{
+        fun fromOrderEntity(orderEntity: OrderEntity): Order {
+            return Order(
+                products = orderEntity.products,
+                nbProduct = orderEntity.nbProduct,
+                price = orderEntity.price,
+                date = orderEntity.date,
+                address = orderEntity.address,
+                id = orderEntity.id!!
+            )
         }
-       display += "Total: $price€"
-        return display
     }
 }
 

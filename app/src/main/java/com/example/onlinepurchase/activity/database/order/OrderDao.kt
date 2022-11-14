@@ -16,4 +16,8 @@ interface OrderDao {
     @Query("SELECT * from order_table WHERE userId = :userId")
      suspend fun getOrderByUserId(userId: Int): List<OrderEntity>
 
+     // delete all orders
+    @Query("DELETE FROM order_table")
+     suspend fun deleteAllOrders()
+
 }

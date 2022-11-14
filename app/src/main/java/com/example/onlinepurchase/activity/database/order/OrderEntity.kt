@@ -6,6 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.onlinepurchase.activity.data.Order
 import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.database.product.ProductEntity
 import com.example.onlinepurchase.activity.database.user.UserEntity

@@ -9,19 +9,34 @@ class DataConverter {
     @TypeConverter
     fun fromProductList(products: List<Product>): String {
         var string = ""
-        for (product in products) {
-            string += product.name + "," + product.price + "," + product.description + "," + product.cover + "," + product.promoted + "," + product.type + "," + product.category + ";"
+        for ((ind, product) in products.withIndex()) {
+            string += product.name + ";" + product.price + ";" + product.description + ";" + product.cover + ";" + product.promoted + ";" + product.type + ";" + product.category
+            if (ind != products.size - 1) {
+                string += "_"
+            }
         }
+
         return string
     }
 
     @TypeConverter
     fun toProductList(string: String): List<Product> {
         val products = mutableListOf<Product>()
-        val productString = string.split(";")
+        val productString = string.split("_")
         for (product in productString) {
-            val productData = product.split(",")
-            products.add(Product(productData[0], productData[2], productData[1].toDouble(), productData[3].toInt(), productData[4].toBoolean(), productData[5].toInt(), Category.valueOf(productData[6])))
+            val productInfo = product.split(";")
+            products.add(
+                Product(
+                    name = productInfo[0],
+                    price = productInfo[1].toDouble(),
+                    description = productInfo[2],
+                    cover = productInfo[3].toInt(),
+                    promoted = productInfo[4].toBoolean(),
+                    type = productInfo[5].toInt(),
+                    category = Category.valueOf(productInfo[6])
+                )
+            )
+
         }
         return products
     }
