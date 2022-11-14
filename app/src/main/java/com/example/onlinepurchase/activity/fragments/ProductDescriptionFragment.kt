@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Product
-import com.example.onlinepurchase.activity.data.productsList
 import com.example.onlinepurchase.databinding.FragmentProductDescriptionBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,6 +22,7 @@ class ProductDescriptionFragment : Fragment() {
     private lateinit var binding: FragmentProductDescriptionBinding
     private val args: ProductDescriptionFragmentArgs by navArgs()
     private lateinit var product: Product
+
     //get cart from application
     private var cart = OnlinePurchase.cart
 
@@ -61,7 +61,6 @@ class ProductDescriptionFragment : Fragment() {
             add.setOnClickListener {
                 displayAddingViews(add, increment, decrement, numberTextView)
                 cart.add(product)
-                Log.d("Cart+", cart.toString())
 
                 // +
                 increment.setOnClickListener {
@@ -72,7 +71,6 @@ class ProductDescriptionFragment : Fragment() {
                 decrement.setOnClickListener {
                     var currentNumber = Integer.parseInt(numberTextView.text.toString())
                     cart.remove(product)
-                    Log.d("Cart-", cart.toString())
                     if (currentNumber == 1) {
                         displayAddingViews(add, increment, decrement, numberTextView)
                     } else {
@@ -110,7 +108,6 @@ class ProductDescriptionFragment : Fragment() {
         if (currentNumber < 10) {
             ++currentNumber
             cart.add(product)
-            Log.d("Cart+", cart.toString())
         } else {
             Toast.makeText(activity, "You can't add more than 10 items", Toast.LENGTH_LONG).show()
         }

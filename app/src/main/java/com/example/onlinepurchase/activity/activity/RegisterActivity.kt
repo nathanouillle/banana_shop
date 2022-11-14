@@ -86,7 +86,7 @@ class RegisterActivity : AppCompatActivity() {
                 // Check if the passwords are the same
                 if (userPassword == userPassword2) {
                     // Check if the user is already in the database
-                    val userDatabase: UserEntity? = runBlocking(Dispatchers.IO) {
+                    val userDatabase: UserEntity = runBlocking(Dispatchers.IO) {
                         OnlinePurchase.onlinePurchaseDatabase.userDao().getUserByEmail(userEmail)
                     }
                     if (userDatabase == null) {
@@ -114,14 +114,12 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun onPermissionResult(result: Boolean) {
         if (result) {
-            binding.permissionResult.text = "Granted"
-            // If permission Granted -> We take the picture
             openCamera.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
-        } else {
-            binding.permissionResult.text = "Not Granted"
         }
     }
 
+    // My phone has a problem with the camera, i have to rotate the picture for it to be displayed correctly. Nonetheless, when using the emulator, the picture is displayed correctly without the rotation
+    // Keep this function in case of future use
     private fun rotateBitmap(source: Bitmap, degrees: Float): Bitmap {
         val matrix = Matrix()
         matrix.postRotate(degrees)

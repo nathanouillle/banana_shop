@@ -23,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class ProductListFragment : Fragment(), ProductClickListener{
+class ProductListFragment : Fragment(), ProductClickListener {
 
     private lateinit var clickListener: ProductClickListener
     private val args: ProductListFragmentArgs by navArgs()
@@ -32,8 +32,7 @@ class ProductListFragment : Fragment(), ProductClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        clickListener=this
-
+        clickListener = this
     }
 
     override fun onCreateView(
@@ -47,7 +46,6 @@ class ProductListFragment : Fragment(), ProductClickListener{
         // Retrieve the category to show
         val categoryToShow = args.category
         getProductList(categoryToShow)
-
 
         // Convert ProductEntity to Product to show in the recycler view
         productsEntity.map {
@@ -84,7 +82,8 @@ class ProductListFragment : Fragment(), ProductClickListener{
     private fun getProductList(category: Category) {
         runBlocking {
             launch(Dispatchers.IO) {
-                val list = OnlinePurchase.onlinePurchaseDatabase.productDao().getProductsByCategory(category)
+                val list = OnlinePurchase.onlinePurchaseDatabase.productDao()
+                    .getProductsByCategory(category)
                 productsEntity.postValue(list)
             }
         }

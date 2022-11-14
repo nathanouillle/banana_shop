@@ -22,18 +22,20 @@ class LoginActivity : AppCompatActivity() {
             val username = binding.username.text.toString()
             val password = binding.password.text.toString()
 
-            if(username.isNotBlank() && password.isNotBlank()) {
+            if (username.isNotBlank() && password.isNotBlank()) {
                 // Search for user in database
                 runBlocking { // runBlocking is used to wait for the result of the coroutine
-                    val user = OnlinePurchase.onlinePurchaseDatabase.userDao().connectUser(username, password)
-                    if(user != null) {
+                    val user = OnlinePurchase.onlinePurchaseDatabase.userDao()
+                        .connectUser(username, password)
+                    if (user != null) {
                         // User found
                         val intent = Intent(this@LoginActivity, MenuActivity::class.java)
                         intent.putExtra("userID", user.id)
                         startActivity(intent)
                     } else {
                         // User not found
-                        Toast.makeText(this@LoginActivity, "User not found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginActivity, "User not found", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             } else {

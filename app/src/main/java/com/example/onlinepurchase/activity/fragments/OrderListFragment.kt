@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinepurchase.activity.data.Order
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onlinepurchase.activity.OnlinePurchase
-import com.example.onlinepurchase.activity.data.ordersList
 import com.example.onlinepurchase.activity.orderRecyclerView.OrderListAdapter
 import com.example.onlinepurchase.activity.menu.profil.ProfilFragmentDirections
 import com.example.onlinepurchase.activity.orderRecyclerView.OrderClickListener
@@ -20,7 +19,7 @@ import kotlinx.coroutines.runBlocking
 import kotlin.properties.Delegates
 
 
-class OrderListFragment: Fragment(),OrderClickListener {
+class OrderListFragment : Fragment(), OrderClickListener {
     private lateinit var clickListener: OrderClickListener
     private var userID by Delegates.notNull<Int>()
     private lateinit var orders: List<Order>
@@ -28,14 +27,15 @@ class OrderListFragment: Fragment(),OrderClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        clickListener=this
+        clickListener = this
 
         // Get userID from menu activity
         userID = requireActivity().intent.getIntExtra("userID", 0)
 
         // Get orders from database
         runBlocking(Dispatchers.IO) {
-            val ordersEntity = OnlinePurchase.onlinePurchaseDatabase.orderDao().getOrderByUserId(userID)
+            val ordersEntity =
+                OnlinePurchase.onlinePurchaseDatabase.orderDao().getOrderByUserId(userID)
             // Convert ordersEntity to orders
             orders = ordersEntity.map { orderEntity ->
                 Order.fromOrderEntity(orderEntity)
@@ -53,10 +53,10 @@ class OrderListFragment: Fragment(),OrderClickListener {
         val view = inflater.inflate(R.layout.fragment_order_list, container, false)
 
         // Call the adapter
-        if(view is RecyclerView) {
+        if (view is RecyclerView) {
             with(view) {
-                layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-                adapter = OrderListAdapter(orders,clickListener)
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = OrderListAdapter(orders, clickListener)
             }
         }
 

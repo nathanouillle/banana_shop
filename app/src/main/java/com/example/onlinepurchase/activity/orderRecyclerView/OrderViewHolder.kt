@@ -6,11 +6,13 @@ import com.example.onlinepurchase.activity.data.Order
 import com.example.onlinepurchase.databinding.ItemViewOrderBinding
 
 
-const val datePattern = "MM-yyyy"
-val simpleDateFormat = SimpleDateFormat(datePattern)
+private const val datePattern = "MM-yyyy"
+private val simpleDateFormat = SimpleDateFormat(datePattern)
 
-class OrderViewHolder(private val itemViewOrderBinding: ItemViewOrderBinding, private val clickListener: OrderClickListener)
-    : RecyclerView.ViewHolder(itemViewOrderBinding.root) {
+class OrderViewHolder(
+    private val itemViewOrderBinding: ItemViewOrderBinding,
+    private val clickListener: OrderClickListener
+) : RecyclerView.ViewHolder(itemViewOrderBinding.root) {
 
     fun bindOrder(order: Order) {
         itemViewOrderBinding.textViewOrderAddress.text = order.address

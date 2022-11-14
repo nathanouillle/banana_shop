@@ -38,6 +38,7 @@ class CartFragment : Fragment() {
         super.onCreate(savedInstanceState)
         // Get userID from menu activity
         userID = requireActivity().intent.getIntExtra("userID", 0)
+
         // Get user from database
         runBlocking(Dispatchers.IO) {
             user = OnlinePurchase.onlinePurchaseDatabase.userDao().getUserById(userID).toUser()
@@ -80,7 +81,6 @@ class CartFragment : Fragment() {
                 OnlinePurchase.onlinePurchaseDatabase.orderDao().addOrder(orderEntity)
             }
             cart.clear()
-            // If email was sent, add order to database
 
         }
 
@@ -93,7 +93,7 @@ class CartFragment : Fragment() {
     }
 
     private fun computePrice(data: List<Product>): Double {
-        var price: Double = 0.0
+        var price = 0.0
         for (i in data) {
             price += i.price!!
         }

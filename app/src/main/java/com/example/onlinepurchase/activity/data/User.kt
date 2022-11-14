@@ -1,7 +1,5 @@
 package com.example.onlinepurchase.activity.data
 
-import android.graphics.Bitmap
-import android.widget.ImageView
 import com.example.onlinepurchase.activity.database.user.UserEntity
 
 data class User(

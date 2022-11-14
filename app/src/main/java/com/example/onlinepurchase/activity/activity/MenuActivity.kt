@@ -27,6 +27,7 @@ class MenuActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Retrieve userID from intent
+        // The fragment will use it to retrieve the user's data
         val userID = intent.getIntExtra("userID", 0)
 
         val navView: BottomNavigationView = binding.navView

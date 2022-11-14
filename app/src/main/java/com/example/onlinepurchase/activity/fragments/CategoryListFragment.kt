@@ -23,15 +23,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
-class CategoryListFragment: Fragment(),CategoryClickListener {
+class CategoryListFragment : Fragment(), CategoryClickListener {
 
-    private lateinit var clickListener : CategoryClickListener
+    private lateinit var clickListener: CategoryClickListener
     private val categoriesProductEntity = MutableLiveData<List<ProductEntity>>()
     private var categoriesProduct = mutableListOf<Product>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        clickListener=this
+        clickListener = this
 
         // Get categories from database
         getCategories()
@@ -57,7 +57,7 @@ class CategoryListFragment: Fragment(),CategoryClickListener {
             if (view is RecyclerView) {
                 with(view) {
                     layoutManager =
-                        GridLayoutManager(context, OnlinePurchase.preferences.getUserCategory(),)
+                        GridLayoutManager(context, OnlinePurchase.preferences.getUserCategory())
                     adapter = CategoryListAdapter(categoriesProduct, clickListener)
                 }
             }
@@ -67,7 +67,8 @@ class CategoryListFragment: Fragment(),CategoryClickListener {
     }
 
     override fun onClick(product: Product) {
-        val direction = HomeFragmentDirections.actionNavigationHomeToProductListFragment(product.category)
+        val direction =
+            HomeFragmentDirections.actionNavigationHomeToProductListFragment(product.category)
         view?.findNavController()?.navigate(direction)
     }
 

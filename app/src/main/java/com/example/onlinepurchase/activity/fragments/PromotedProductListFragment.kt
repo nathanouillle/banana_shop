@@ -24,15 +24,15 @@ import com.example.onlinepurchase.activity.productRecyclerView.ProductListAdapte
 import com.example.onlinepurchase.activity.productRecyclerView.ProductClickListener
 import com.example.onlinepurchase.activity.data.Product.Companion.fromProductEntity
 
-class PromotedProductListFragment: Fragment(), ProductClickListener{
+class PromotedProductListFragment : Fragment(), ProductClickListener {
 
-    private lateinit var clickListener : ProductClickListener
+    private lateinit var clickListener: ProductClickListener
     private val promotedProductsEntity = MutableLiveData<List<ProductEntity>>()
     private var promotedProducts = mutableListOf<Product>()
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        clickListener=this
+        clickListener = this
 
         // Get promoted products from database
         getPromotedProducts()
@@ -78,7 +78,7 @@ class PromotedProductListFragment: Fragment(), ProductClickListener{
         }
     }
 
-    private fun getPromotedProducts(){
+    private fun getPromotedProducts() {
         runBlocking {
             launch(Dispatchers.IO) {
                 val list = OnlinePurchase.onlinePurchaseDatabase.productDao().getPromotedProducts()

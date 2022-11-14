@@ -6,7 +6,7 @@ import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.database.OnlinePurchaseDatabase
 import com.example.onlinepurchase.activity.preferences.SharedPreferences
 
-class OnlinePurchase: Application() {
+class OnlinePurchase : Application() {
 
     companion object {
         lateinit var preferences: SharedPreferences

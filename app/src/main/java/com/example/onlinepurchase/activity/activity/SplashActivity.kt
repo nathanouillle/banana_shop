@@ -20,14 +20,14 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-
+        // add products to the database
         insertProducts()
 
         handler = Handler()
         handler.postDelayed({
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-        },3000)
+        }, 3000)
     }
 
     private fun insertProducts() {

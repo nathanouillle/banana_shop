@@ -2,9 +2,6 @@ package com.example.onlinepurchase.activity.data
 
 import com.example.onlinepurchase.activity.database.product.ProductEntity
 
-var productsList = mutableListOf<Product>()
-
-
 data class Product(
 
     val name: String,
@@ -14,12 +11,11 @@ data class Product(
     val promoted: Boolean = false,
     val type: Int, //If 1->Category Title, if 2->Product
     val category: Category,
-    val id: Int? = productsList.size
+    val id: Int? = null
+) {
+    override fun toString(): String = "$category: $name, $price\n"
 
-    ) {
-    override fun toString(): String ="$category: $name, $price\n"
-
-    companion object{
+    companion object {
         fun fromProductEntity(productEntity: ProductEntity): Product {
             return Product(
                 name = productEntity.name,
@@ -34,7 +30,7 @@ data class Product(
         }
     }
 }
-    // Not able to parcelize Category which is a Enum
+// Not able to parcelize Category which is a Enum
 /*: Parcelable {
 
     @RequiresApi(Build.VERSION_CODES.Q)

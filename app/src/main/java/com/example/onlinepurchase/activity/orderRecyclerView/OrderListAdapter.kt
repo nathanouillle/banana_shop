@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinepurchase.activity.data.Order
 import com.example.onlinepurchase.databinding.ItemViewOrderBinding
 
-class OrderListAdapter(private val orders: List<Order>,private val clickListener: OrderClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class OrderListAdapter(
+    private val orders: List<Order>,
+    private val clickListener: OrderClickListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val from = LayoutInflater.from(parent.context)
-        val binding = ItemViewOrderBinding.inflate(from,parent,false)
-        return OrderViewHolder(binding,clickListener)
+        val binding = ItemViewOrderBinding.inflate(from, parent, false)
+        return OrderViewHolder(binding, clickListener)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

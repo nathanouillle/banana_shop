@@ -13,10 +13,13 @@ import com.example.onlinepurchase.activity.database.user.UserDao
 import com.example.onlinepurchase.activity.database.user.UserEntity
 
 
-
-@Database(entities = [ProductEntity::class, UserEntity::class, OrderEntity::class], version = 4, exportSchema = true)
+@Database(
+    entities = [ProductEntity::class, UserEntity::class, OrderEntity::class],
+    version = 4,
+    exportSchema = true
+)
 @TypeConverters(DataConverter::class)
-abstract class OnlinePurchaseDatabase: RoomDatabase() {
+abstract class OnlinePurchaseDatabase : RoomDatabase() {
 
     abstract fun productDao(): ProductDao
     abstract fun userDao(): UserDao
