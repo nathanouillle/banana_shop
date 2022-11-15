@@ -2,6 +2,7 @@ package com.example.onlinepurchase.activity.fragments
 
 import android.view.View
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
 import java.text.SimpleDateFormat
 import android.view.LayoutInflater
@@ -43,11 +44,15 @@ class OrderDetailsFragment : Fragment() {
         binding.titleDate.text = order.date.let { simpleDateFormat.format(it) }
         binding.orderPrice.text = order.price.toString()
 
+        val productsList = order.products
+        val map = productsList.groupingBy { it.id }.eachCount() // We dont have the id in the order
+        Log.d("OrderFragment", "map: $map")
+
         // Call the adapter for the order content
         if (binding.orderProductListDetails is RecyclerView) {
             with(binding.orderProductListDetails) {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                adapter = OrderDetailListAdapter(order.products)
+                adapter = OrderDetailListAdapter(map)
             }
         }
 

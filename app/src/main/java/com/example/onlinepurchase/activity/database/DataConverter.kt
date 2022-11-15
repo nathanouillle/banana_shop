@@ -10,7 +10,7 @@ class DataConverter {
     fun fromProductList(products: List<Product>): String {
         var string = ""
         for ((ind, product) in products.withIndex()) {
-            string += product.name + ";" + product.price + ";" + product.description + ";" + product.cover + ";" + product.promoted + ";" + product.type + ";" + product.category
+            string += product.name + ";" + product.price + ";" + product.description + ";" + product.cover + ";" + product.promoted + ";" + product.type + ";" + product.category + ";" + product.id
             if (ind != products.size - 1) {
                 string += "_"
             }
@@ -33,7 +33,8 @@ class DataConverter {
                     cover = productInfo[3].toInt(),
                     promoted = productInfo[4].toBoolean(),
                     type = productInfo[5].toInt(),
-                    category = Category.valueOf(productInfo[6])
+                    category = Category.valueOf(productInfo[6]),
+                    id = productInfo[7].toInt()
                 )
             )
 

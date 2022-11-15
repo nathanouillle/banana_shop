@@ -3,10 +3,14 @@ package com.example.onlinepurchase.activity.orderDetailRecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
+import com.example.onlinepurchase.activity.OnlinePurchase
+import com.example.onlinepurchase.activity.data.Order
 import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.databinding.ItemViewProductOrderBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
-class OrderDetailListAdapter(private val orderedProducts: List<Product>) :
+class OrderDetailListAdapter(private val orderedProducts: Map<Int?, Int>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -16,7 +20,24 @@ class OrderDetailListAdapter(private val orderedProducts: List<Product>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as OrderDetailViewHolder).bindOrderDetail(orderedProducts[position])
+        // get productID quantity
+        val productID = orderedProducts.keys.elementAt(position)
+        val quantity = orderedProducts[productID]!!
+        // get product from database
+        runBlocking(Dispatchers.IO) {
+            val product = productID?.let {
+                OnlinePurchase.onlinePurchaseDatabase.productDao().getProductById(
+                    it
+                )
+            }?.let { Product.fromProductEntity(it) }
+            if (product != null) {
+                (holder as OrderDetailViewHolder).bindOrderDetail(product, quantity)
+            }
+        }
+
+
+        /*
+        (holder as OrderDetailViewHolder).bindOrderDetail(orderedProducts[position])*/
     }
 
     override fun getItemCount(): Int = orderedProducts.size

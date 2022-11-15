@@ -6,6 +6,7 @@ import android.view.View
 import java.lang.Exception
 import android.widget.Toast
 import android.content.Intent
+import android.util.Log
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import com.example.onlinepurchase.R
@@ -59,12 +60,15 @@ class CartFragment : Fragment() {
         _binding!!.cartNbItems.text = cart.size.toString() + " items"
         _binding!!.cartPrice.text = cartPrice + "€"
 
+        val map = cart.groupingBy { it.id }.eachCount()
+        Log.d("CartFragment", "map: $map")
+
         // Call the adapter to display the cart
         val productListView = _binding!!.cartProductList
         if (productListView is RecyclerView) {
             with(productListView) {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                adapter = OrderDetailListAdapter(cart)
+                adapter = OrderDetailListAdapter(map)
             }
         }
 
