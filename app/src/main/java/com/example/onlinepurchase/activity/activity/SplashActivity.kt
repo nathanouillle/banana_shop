@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Category
 import com.example.onlinepurchase.activity.database.product.ProductEntity
+import com.example.onlinepurchase.activity.preferences.SharedPreferences
 
 class SplashActivity : AppCompatActivity() {
 
@@ -23,11 +24,26 @@ class SplashActivity : AppCompatActivity() {
         // add products to the database
         insertProducts()
 
+        // Check if user is connected
+        val sharedPreferences = SharedPreferences(this)
+        val userConnected = sharedPreferences.getUserID()
+
+        // wait 3 seconds before going to the next activity
         handler = Handler()
         handler.postDelayed({
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            if (userConnected != -1) {
+                // Go to the main activity
+                val intent = Intent(this, MenuActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                // Go to the login activity
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }, 3000)
+
     }
 
     private fun insertProducts() {

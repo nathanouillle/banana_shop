@@ -36,8 +36,8 @@ class CartFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Get userID from menu activity
-        userID = requireActivity().intent.getIntExtra("userID", 0)
+        // get userID from shared preferences
+        userID = OnlinePurchase.preferences.getUserID()
 
         // Get user from database
         runBlocking(Dispatchers.IO) {
@@ -70,17 +70,24 @@ class CartFragment : Fragment() {
 
         // Action Pay
         _binding!!.actionPay.setOnClickListener {
-            //sendEmail(cartPrice)
-            runBlocking(Dispatchers.IO) {
-                val orderEntity = OrderEntity(
-                    userId = userID,
-                    products = cart,
-                    price = cartPrice.toDouble(),
-                    address = user.address
-                )
-                OnlinePurchase.onlinePurchaseDatabase.orderDao().addOrder(orderEntity)
+            if(cart.size > 0) {
+                //sendEmail(cartPrice)
+                runBlocking(Dispatchers.IO) {
+                    val orderEntity = OrderEntity(
+                        userId = userID,
+                        products = cart,
+                        price = cartPrice.toDouble(),
+                        address = user.address
+                    )
+                    OnlinePurchase.onlinePurchaseDatabase.orderDao().addOrder(orderEntity)
+                }
+                Toast.makeText(context, "Order sent!", Toast.LENGTH_SHORT).show()
+                cart.clear()
+
             }
-            cart.clear()
+            else {
+                Toast.makeText(context, "Your cart is empty", Toast.LENGTH_SHORT).show()
+            }
 
         }
 

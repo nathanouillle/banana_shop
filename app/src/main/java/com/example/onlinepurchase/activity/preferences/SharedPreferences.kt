@@ -12,6 +12,7 @@ class SharedPreferences(context: Context) {
 
     private val KEY_USER_CATEGORY = "USER_CATEGORY"
     private val KEY_USER_PRODUCT = "USER_PRODUCT"
+    private val KEY_USER_ID = "USER_ID"
 
     fun setUserCategory(userCategory: Int) {
         preferences.edit().putInt(KEY_USER_CATEGORY, userCategory).apply()
@@ -30,5 +31,13 @@ class SharedPreferences(context: Context) {
 
     fun getUserProduct(): Int {
         return preferences.getInt(KEY_USER_PRODUCT, 2)
+    }
+
+    fun setUserID(userConnected: Int) {
+        preferences.edit().putInt(KEY_USER_ID, userConnected).apply()
+    }
+
+    fun getUserID(): Int {
+        return preferences.getInt(KEY_USER_ID, -1)
     }
 }

@@ -29,8 +29,8 @@ class OrderListFragment : Fragment(), OrderClickListener {
         super.onCreate(savedInstanceState)
         clickListener = this
 
-        // Get userID from menu activity
-        userID = requireActivity().intent.getIntExtra("userID", 0)
+        // get userID from shared preferences
+        userID = OnlinePurchase.preferences.getUserID()
 
         // Get orders from database
         runBlocking(Dispatchers.IO) {

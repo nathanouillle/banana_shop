@@ -33,6 +33,8 @@ class ProductListFragment : Fragment(), ProductClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         clickListener = this
+        val categoryToShow = args.category
+        getProductList(categoryToShow)
     }
 
     override fun onCreateView(
@@ -44,8 +46,8 @@ class ProductListFragment : Fragment(), ProductClickListener {
         val view = inflater.inflate(R.layout.fragment_product_list, container, false)
 
         // Retrieve the category to show
-        val categoryToShow = args.category
-        getProductList(categoryToShow)
+        //val categoryToShow = args.category
+
 
         // Convert ProductEntity to Product to show in the recycler view
         productsEntity.map {

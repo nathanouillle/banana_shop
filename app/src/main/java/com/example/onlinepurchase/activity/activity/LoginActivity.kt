@@ -29,8 +29,13 @@ class LoginActivity : AppCompatActivity() {
                         .connectUser(username, password)
                     if (user != null) {
                         // User found
+
+                        // Save user connected in shared preferences
+                        user.id?.let { it1 -> OnlinePurchase.preferences.setUserID(it1) }
+
+                        // Go to the menu activity
                         val intent = Intent(this@LoginActivity, MenuActivity::class.java)
-                        intent.putExtra("userID", user.id)
+                        //intent.putExtra("userID", user.id)
                         startActivity(intent)
                     } else {
                         // User not found
