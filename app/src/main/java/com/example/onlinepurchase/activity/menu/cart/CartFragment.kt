@@ -21,12 +21,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onlinepurchase.activity.OnlinePurchase
+import com.example.onlinepurchase.activity.cartRecyclerView.CartDetailListAdapter
 import com.example.onlinepurchase.activity.data.Product
-import com.example.onlinepurchase.activity.data.Category
 import com.example.onlinepurchase.activity.data.User
 import com.example.onlinepurchase.activity.database.order.OrderEntity
+import com.example.onlinepurchase.activity.cartRecyclerView.AddingRemovingClickListener
 import com.example.onlinepurchase.databinding.FragmentCartBinding
-import com.example.onlinepurchase.activity.orderDetailRecyclerView.OrderDetailListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import java.text.DecimalFormat
@@ -35,12 +35,13 @@ import kotlin.properties.Delegates
 private const val CHANNEL_ID = "channel_id"
 private const val notificationId = 1
 
-class CartFragment : Fragment() {
+class CartFragment : Fragment(), AddingRemovingClickListener {
 
     private var _binding: FragmentCartBinding? = null
     private var userID by Delegates.notNull<Int>()
     private lateinit var user: User
     private lateinit var cart: MutableList<Product>
+    private lateinit var clickListener: AddingRemovingClickListener
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -49,6 +50,7 @@ class CartFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        clickListener = this
         // get userID from shared preferences
         userID = OnlinePurchase.preferences.getUserID()
 
@@ -100,21 +102,12 @@ class CartFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.i("CartFragment", "onResume")
         val cartPrice = computePrice(cart).toString()
         _binding!!.cartNbItems.text = cart.size.toString() + " items"
         _binding!!.cartPrice.text = cartPrice + "€"
 
-        val map = cart.groupingBy { it.id }.eachCount()
-
         // Call the adapter to display the cart
-        val productListView = _binding!!.cartProductList
-        if (productListView is RecyclerView) {
-            with(productListView) {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                adapter = OrderDetailListAdapter(map)
-            }
-        }
+        displayCart()
     }
 
     override fun onDestroyView() {
@@ -137,8 +130,8 @@ class CartFragment : Fragment() {
                 "?subject=" + Uri.encode("Order from ${user.firstName}") +
                 "&body=" + Uri.encode("Send to : ${user.address}\n\n" +
                                         "Products:\n $cart \n " +
-                                        "Total: $cartPrice€" +
-                                        "Any comments: ")
+                                        "Total: $cartPrice€\n\n" +
+                                        "Any comment: ")
         val email = Intent(Intent.ACTION_SENDTO)
         val uri = Uri.parse(uriText)
         email.data = uri
@@ -182,6 +175,38 @@ class CartFragment : Fragment() {
 
         with(NotificationManagerCompat.from(OnlinePurchase.onlinePurchaseContext)) {
             notify(notificationId, builder.build())
+        }
+    }
+
+    override fun onClickAdd(product: Product, quantity: Int) {
+        if(quantity < 10) {
+            cart.add(product)
+            _binding!!.cartNbItems.text = cart.size.toString() + " items"
+            _binding!!.cartPrice.text = computePrice(cart).toString() + "€"
+            // Update the adapter
+            displayCart()
+        }
+    }
+
+    override fun onClickRemove(product: Product, quantity: Int) {
+        if(quantity > 0) {
+            cart.remove(product)
+            _binding!!.cartNbItems.text = cart.size.toString() + " items"
+            _binding!!.cartPrice.text = computePrice(cart).toString() + "€"
+        }
+        // Update the adapter
+        displayCart()
+    }
+
+    private fun displayCart() {
+        val productListView = _binding!!.cartProductList
+        if (productListView is RecyclerView) {
+            with(productListView) {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                adapter =
+                    CartDetailListAdapter(cart.groupingBy { it.id }.eachCount(), clickListener)
+
+            }
         }
     }
 }

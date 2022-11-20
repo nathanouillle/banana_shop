@@ -34,10 +34,6 @@ class OrderDetailListAdapter(private val orderedProducts: Map<Int?, Int>) :
                 (holder as OrderDetailViewHolder).bindOrderDetail(product, quantity)
             }
         }
-
-
-        /*
-        (holder as OrderDetailViewHolder).bindOrderDetail(orderedProducts[position])*/
     }
 
     override fun getItemCount(): Int = orderedProducts.size

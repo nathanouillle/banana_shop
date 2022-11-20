@@ -42,9 +42,11 @@
         <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Banana Shop/app/src/main/res/layout/activity_register.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Banana Shop/app/src/main/res/layout/fragment_cart.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Banana Shop/app/src/main/res/layout/fragment_order_details.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Banana Shop/app/src/main/res/layout/fragment_product_description.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Banana Shop/app/src/main/res/layout/fragment_profil.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Banana Shop/app/src/main/res/layout/item_view_order.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Banana Shop/app/src/main/res/layout/item_view_product_order.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Banana Shop/app/src/main/res/layout/item_view_product_cart.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Banana Shop/app/src/main/res/layout/item_view_product_order.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Banana Shop/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/activity_forgot_password.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Nathan/Documents/IUA/tecnologias moviles/Coco-tienda-main/app/src/main/res/layout/activity_login.xml" value="0.17552083333333332" />

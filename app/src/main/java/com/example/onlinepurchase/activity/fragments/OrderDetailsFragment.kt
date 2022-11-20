@@ -26,6 +26,7 @@ class OrderDetailsFragment : Fragment() {
     private val args: OrderDetailsFragmentArgs by navArgs()
     private lateinit var order: Order
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
