@@ -3,6 +3,8 @@ package com.example.onlinepurchase.activity.activity
 import android.os.Bundle
 import android.os.Handler
 import android.content.Intent
+import android.util.Log
+import android.widget.Toast
 import kotlinx.coroutines.launch
 import com.example.onlinepurchase.R
 import kotlinx.coroutines.Dispatchers
@@ -11,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Category
 import com.example.onlinepurchase.activity.database.product.ProductEntity
+import com.example.onlinepurchase.activity.networking.ProductListDTO
+import com.example.onlinepurchase.activity.networking.ProductRetrofit
 import com.example.onlinepurchase.activity.preferences.SharedPreferences
 
 class SplashActivity : AppCompatActivity() {
@@ -21,8 +25,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        // add products to the database
-        insertProducts()
+        // Connect to API and update database
+        initializeProducts()
+
 
         // Check if user is connected
         val sharedPreferences = SharedPreferences(this)
@@ -46,7 +51,38 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
-    private fun insertProducts() {
+
+    private fun initializeProducts() {
+
+        // Get product list from API
+        val productRetrofit = ProductRetrofit()
+        val serviceResult = productRetrofit.productRetrofitService.getProductList()
+        serviceResult.enqueue(object : retrofit2.Callback<ProductListDTO> {
+            override fun onResponse(
+                call: retrofit2.Call<ProductListDTO>,
+                response: retrofit2.Response<ProductListDTO>
+            ) {
+                if (response.isSuccessful) {
+                    val productList = response.body()?.productList
+                    if (productList != null) {
+                        // convert product list to product entity list
+                        val productEntityList = ProductListDTO(productList).toProductEntityList()
+
+                        // update product list in database
+                        runBlocking(Dispatchers.IO) {
+                            OnlinePurchase.onlinePurchaseDatabase.productDao().updateProductList(productEntityList)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: retrofit2.Call<ProductListDTO>, t: Throwable) {
+                Toast.makeText(this@SplashActivity, "Error initializing the database", Toast.LENGTH_SHORT).show()
+                Log.e("LoginActivity", "Error: ${t.message}")
+            }
+        })
+    }
+    private fun insertProductsWithoutNetworking() {
         runBlocking {
             launch(Dispatchers.IO) {
                 OnlinePurchase.onlinePurchaseDatabase.productDao().deleteAllProducts()

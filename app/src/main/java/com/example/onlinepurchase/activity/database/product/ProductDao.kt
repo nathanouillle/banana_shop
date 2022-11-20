@@ -9,6 +9,14 @@ interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertProduct(productEntity: ProductEntity)
 
+    // insert product list to database
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertProductList(productList: List<ProductEntity>)
+
+    // update product list to database
+    @Update
+    suspend fun updateProductList(productList: List<ProductEntity>)
+
     @Query("SELECT * from product_table WHERE id = :id")
     suspend fun getProductById(id: Int): ProductEntity
 
