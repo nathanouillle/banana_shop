@@ -1,14 +1,21 @@
 package com.example.onlinepurchase.activity.menu.cart
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import java.lang.Exception
 import android.widget.Toast
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import android.view.ViewGroup
 import android.view.LayoutInflater
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.onlinepurchase.R
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +29,11 @@ import com.example.onlinepurchase.databinding.FragmentCartBinding
 import com.example.onlinepurchase.activity.orderDetailRecyclerView.OrderDetailListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import java.text.DecimalFormat
 import kotlin.properties.Delegates
+
+private const val CHANNEL_ID = "channel_id"
+private const val notificationId = 1
 
 class CartFragment : Fragment() {
 
@@ -35,6 +46,7 @@ class CartFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // get userID from shared preferences
@@ -44,6 +56,8 @@ class CartFragment : Fragment() {
         runBlocking(Dispatchers.IO) {
             user = OnlinePurchase.onlinePurchaseDatabase.userDao().getUserById(userID).toUser()
         }
+
+        createNotificationChannel()
     }
 
     override fun onCreateView(
@@ -54,28 +68,12 @@ class CartFragment : Fragment() {
 
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         cart = OnlinePurchase.cart
-
-        // Inflate the layout
         val cartPrice = computePrice(cart).toString()
-        _binding!!.cartNbItems.text = cart.size.toString() + " items"
-        _binding!!.cartPrice.text = cartPrice + "€"
 
-        val map = cart.groupingBy { it.id }.eachCount()
-        Log.d("CartFragment", "map: $map")
-
-        // Call the adapter to display the cart
-        val productListView = _binding!!.cartProductList
-        if (productListView is RecyclerView) {
-            with(productListView) {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                adapter = OrderDetailListAdapter(map)
-            }
-        }
 
         // Action Pay
         _binding!!.actionPay.setOnClickListener {
-            if(cart.size > 0) {
-                //sendEmail(cartPrice)
+            if (cart.size > 0) {
                 runBlocking(Dispatchers.IO) {
                     val orderEntity = OrderEntity(
                         userId = userID,
@@ -85,11 +83,13 @@ class CartFragment : Fragment() {
                     )
                     OnlinePurchase.onlinePurchaseDatabase.orderDao().addOrder(orderEntity)
                 }
-                Toast.makeText(context, "Order sent!", Toast.LENGTH_SHORT).show()
+                // send notification
+                sendNotification()
+                // send email
+                sendEmail(cartPrice)
+                // clear cart
                 cart.clear()
-
-            }
-            else {
+            } else {
                 Toast.makeText(context, "Your cart is empty", Toast.LENGTH_SHORT).show()
             }
 
@@ -98,42 +98,90 @@ class CartFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.i("CartFragment", "onResume")
+        val cartPrice = computePrice(cart).toString()
+        _binding!!.cartNbItems.text = cart.size.toString() + " items"
+        _binding!!.cartPrice.text = cartPrice + "€"
+
+        val map = cart.groupingBy { it.id }.eachCount()
+
+        // Call the adapter to display the cart
+        val productListView = _binding!!.cartProductList
+        if (productListView is RecyclerView) {
+            with(productListView) {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                adapter = OrderDetailListAdapter(map)
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     private fun computePrice(data: List<Product>): Double {
+        val df = DecimalFormat("#.##")
         var price = 0.0
         for (i in data) {
             price += i.price!!
         }
-        return price
+        return df.format(price).toDouble()
     }
 
 
     private fun sendEmail(cartPrice: String) {
         val uriText = "mailto:banana.shop@gmail.com" +
                 "?subject=" + Uri.encode("Order from ${user.firstName}") +
-                "&body=" + Uri.encode("${user.address}\nProducts:\n $cart \n Total: $cartPrice€")
+                "&body=" + Uri.encode("Send to : ${user.address}\n\n" +
+                                        "Products:\n $cart \n " +
+                                        "Total: $cartPrice€" +
+                                        "Any comments: ")
         val email = Intent(Intent.ACTION_SENDTO)
         val uri = Uri.parse(uriText)
         email.data = uri
         try {
-            startActivity(Intent.createChooser(email, "Pay with..."))
-            // Create an order in the database
-            /*runBlocking(Dispatchers.IO) {
-                val orderEntity = OrderEntity(
-                    userId = userID,
-                    products = cart,
-                    price = cartPrice.toDouble(),
-                    address = user.address
+            startActivity(
+                Intent.createChooser(
+                    email,
+                    "Please send us the details of your order and any comments to help us deliver you the best service possible"
                 )
-                OnlinePurchase.onlinePurchaseDatabase.orderDao().addOrder(orderEntity)
-            }
-            cart.clear()*/
+            )
         } catch (e: Exception) {
-            Toast.makeText(activity, "Error, try later", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                activity,
+                "Unable to confirm your order, please try again later",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel() {
+        val name = "Order confirmation"
+        val descriptionText = "Order confirmation"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+            description = descriptionText
+        }
+        // Register the channel with the system
+        val notificationManager: NotificationManager =
+            requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+
+    private fun sendNotification() {
+        val builder = NotificationCompat.Builder(OnlinePurchase.onlinePurchaseContext, CHANNEL_ID)
+            .setSmallIcon(R.drawable.banana_icon)
+            .setContentTitle("Order confirmed")
+            .setContentText("Your order has been confirmed")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+
+        with(NotificationManagerCompat.from(OnlinePurchase.onlinePurchaseContext)) {
+            notify(notificationId, builder.build())
         }
     }
 }

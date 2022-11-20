@@ -3,8 +3,11 @@ package com.example.onlinepurchase.activity.activity
 import android.os.Bundle
 import android.widget.Toast
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.networking.ProductListDTO
 import com.example.onlinepurchase.activity.networking.ProductRetrofit
@@ -21,18 +24,13 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
-
-
-
-
+        /*
+        Glide.with(this)
+            .load("")
+            .into(binding.imageView)*/
 
 
         binding.login.setOnClickListener {
