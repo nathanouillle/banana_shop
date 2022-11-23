@@ -17,7 +17,7 @@ data class ProductListDTO(
                     name = productDTO.name,
                     description = productDTO.description,
                     price = productDTO.price,
-                    cover = R.drawable.minions,
+                    cover = productDTO.image,
                     promoted = productDTO.promoted,
                     type = productDTO.type,
                     category = Category.valueOf(productDTO.category)

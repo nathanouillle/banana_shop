@@ -69,8 +69,14 @@ class SplashActivity : AppCompatActivity() {
                         val productEntityList = ProductListDTO(productList).toProductEntityList()
 
                         // update product list in database
-                        runBlocking(Dispatchers.IO) {
-                            OnlinePurchase.onlinePurchaseDatabase.productDao().updateProductList(productEntityList)
+                        runBlocking {
+                            launch(Dispatchers.IO) {
+                                OnlinePurchase.onlinePurchaseDatabase.productDao().deleteAllProducts()
+                                OnlinePurchase.onlinePurchaseDatabase.productDao().insertProductList(
+                                    productEntityList
+                                )
+                            }
+
                         }
                     }
                 }
@@ -82,6 +88,7 @@ class SplashActivity : AppCompatActivity() {
             }
         })
     }
+    /*
     private fun insertProductsWithoutNetworking() {
         runBlocking {
             launch(Dispatchers.IO) {
@@ -375,5 +382,5 @@ class SplashActivity : AppCompatActivity() {
                 )
             }
         }
-    }
+    }*/
 }

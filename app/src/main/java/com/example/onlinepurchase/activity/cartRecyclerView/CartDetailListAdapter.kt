@@ -27,15 +27,18 @@ class CartDetailListAdapter(
         val productID = cartProducts.keys.elementAt(position)
         val quantity = cartProducts[productID]!!
         // get product from database
-        runBlocking(Dispatchers.IO) {
-            val product = productID?.let {
+        val product = runBlocking(Dispatchers.IO) {
+            productID?.let {
                 OnlinePurchase.onlinePurchaseDatabase.productDao().getProductById(
                     it
                 )
             }?.let { Product.fromProductEntity(it) }
-            if (product != null) {
-                (holder as CartDetailViewHolder).bindCartDetail(product, quantity)
-            }
+
+
+
+        }
+        if (product != null) {
+            (holder as CartDetailViewHolder).bindCartDetail(product, quantity)
         }
     }
 

@@ -4,7 +4,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface ProductService {
-    @GET("v1/c13b6ad4-e03d-4e67-ab2a-6ea7ea0a9e4f")
+    @GET("v1/a0df10b4-e573-4be2-b427-ead8bbfa1d62")
     fun getProductList(): Call<ProductListDTO>
 
 }

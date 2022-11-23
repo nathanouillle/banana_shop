@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/image_view_product"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/vertical_margin"
         android:adjustViewBounds="true"

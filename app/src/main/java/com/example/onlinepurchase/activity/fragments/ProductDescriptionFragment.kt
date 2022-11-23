@@ -10,8 +10,10 @@ import android.widget.TextView
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Product
+import com.example.onlinepurchase.activity.utils.imageOptions
 import com.example.onlinepurchase.databinding.FragmentProductDescriptionBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,7 +52,12 @@ class ProductDescriptionFragment : Fragment() {
             binding.textViewProductName.text = product.name
             binding.textDescription.text = product.description
             binding.textViewProductPrice.text = product.price.toString()
-            binding.imageViewProduct.setImageResource(product.cover)
+            //binding.imageViewProduct.setImageResource(product.cover)
+            // Fill image with Glide
+            Glide.with(binding.root.context)
+                .load(product.cover)
+                .apply(imageOptions)
+                .into(binding.imageViewProduct)
 
             // Display + and - buttons when added to cart
             val add = binding.buttonAdd

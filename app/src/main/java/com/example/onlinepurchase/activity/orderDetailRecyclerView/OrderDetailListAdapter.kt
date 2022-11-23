@@ -24,15 +24,15 @@ class OrderDetailListAdapter(private val orderedProducts: Map<Int?, Int>) :
         val productID = orderedProducts.keys.elementAt(position)
         val quantity = orderedProducts[productID]!!
         // get product from database
-        runBlocking(Dispatchers.IO) {
-            val product = productID?.let {
+        val product = runBlocking(Dispatchers.IO) {
+            productID?.let {
                 OnlinePurchase.onlinePurchaseDatabase.productDao().getProductById(
                     it
                 )
             }?.let { Product.fromProductEntity(it) }
-            if (product != null) {
-                (holder as OrderDetailViewHolder).bindOrderDetail(product, quantity)
-            }
+        }
+        if (product != null) {
+            (holder as OrderDetailViewHolder).bindOrderDetail(product, quantity)
         }
     }
 

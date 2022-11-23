@@ -30,7 +30,7 @@ class DataConverter {
                     name = productInfo[0],
                     price = productInfo[1].toDouble(),
                     description = productInfo[2],
-                    cover = productInfo[3].toInt(),
+                    cover = productInfo[3],
                     promoted = productInfo[4].toBoolean(),
                     type = productInfo[5].toInt(),
                     category = Category.valueOf(productInfo[6]),
