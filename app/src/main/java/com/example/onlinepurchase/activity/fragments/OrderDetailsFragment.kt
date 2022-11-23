@@ -46,8 +46,7 @@ class OrderDetailsFragment : Fragment() {
         binding.orderPrice.text = order.price.toString()
 
         val productsList = order.products
-        val map = productsList.groupingBy { it.id }.eachCount() // We dont have the id in the order
-        Log.d("OrderFragment", "map: $map")
+        val map = productsList.groupingBy { it.id }.eachCount()
 
         // Call the adapter for the order content
         if (binding.orderProductListDetails is RecyclerView) {

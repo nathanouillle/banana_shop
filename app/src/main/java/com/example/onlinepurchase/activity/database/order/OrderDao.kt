@@ -14,7 +14,7 @@ interface OrderDao {
     @Query("SELECT * from order_table WHERE id = :id")
     suspend fun getOrderById(id: Int): OrderEntity
 
-    @Query("SELECT * from order_table WHERE userId = :userId")
+    @Query("SELECT * from order_table WHERE userId = :userId ORDER BY date DESC")
     suspend fun getOrderByUserId(userId: Int): List<OrderEntity>
 
     @Query("DELETE FROM order_table")

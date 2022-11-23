@@ -8,6 +8,8 @@
     <string name="action_login">Log in</string>
     <string name="help_password">Forgot Password</string>
     <string name="new_user">New here?</string>
+    <string name="title_banana">BANANA</string>
+    <string name="title_shop">SHOP</string>
 
     <!-- Strings related to password forgotten -->
     <string name="indication_initialization_password">Please enter your email and your new password </string>

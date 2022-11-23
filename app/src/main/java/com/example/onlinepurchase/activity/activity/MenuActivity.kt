@@ -1,6 +1,7 @@
 package com.example.onlinepurchase.activity.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import com.example.onlinepurchase.R
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.findNavController
@@ -10,10 +11,13 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.menu.profil.ProfilFragment
 import com.example.onlinepurchase.databinding.ActivityMenuBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 class MenuActivity : AppCompatActivity() {
 
@@ -26,9 +30,12 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Retrieve userID from intent
-        // The fragment will use it to retrieve the user's data
-        val userID = intent.getIntExtra("userID", 0)
+
+        val userID = OnlinePurchase.preferences.getUserID()
+        val user = runBlocking(Dispatchers.IO) {
+            OnlinePurchase.onlinePurchaseDatabase.userDao().getUserById(userID).toUser()
+        }
+        Toast.makeText(this, "Welcome ${user.firstName}!", Toast.LENGTH_SHORT).show()
 
         val navView: BottomNavigationView = binding.navView
 

@@ -52,7 +52,6 @@ class ProductDescriptionFragment : Fragment() {
             binding.textViewProductName.text = product.name
             binding.textDescription.text = product.description
             binding.textViewProductPrice.text = product.price.toString()
-            //binding.imageViewProduct.setImageResource(product.cover)
             // Fill image with Glide
             Glide.with(binding.root.context)
                 .load(product.cover)
@@ -65,25 +64,37 @@ class ProductDescriptionFragment : Fragment() {
             val decrement = binding.actionDecrement
             val numberTextView = binding.numberOfProduct
 
+            // Display add button if product is not in cart
+            if (cart.contains(product)) {
+                add.visibility = View.INVISIBLE
+                increment.visibility = View.VISIBLE
+                decrement.visibility = View.VISIBLE
+                numberTextView.visibility = View.VISIBLE
+                numberTextView.text = computeNumberProducts(product).toString()
+            } else {
+                add.visibility = View.VISIBLE
+                increment.visibility = View.INVISIBLE
+                decrement.visibility = View.INVISIBLE
+                numberTextView.visibility = View.INVISIBLE
+            }
+
+            // Add product to cart
             add.setOnClickListener {
                 displayAddingViews(add, increment, decrement, numberTextView)
                 cart.add(product)
+            }
+            increment.setOnClickListener {
+                numberTextView.text = incrementCart(numberTextView.text)
+            }
 
-                // +
-                increment.setOnClickListener {
-                    numberTextView.text = incrementCart(numberTextView.text)
-                }
-
-                // -
-                decrement.setOnClickListener {
-                    var currentNumber = Integer.parseInt(numberTextView.text.toString())
-                    cart.remove(product)
-                    if (currentNumber == 1) {
-                        displayAddingViews(add, increment, decrement, numberTextView)
-                    } else {
-                        --currentNumber
-                        numberTextView.text = currentNumber.toString()
-                    }
+            decrement.setOnClickListener {
+                var currentNumber = Integer.parseInt(numberTextView.text.toString())
+                cart.remove(product)
+                if (currentNumber == 1) {
+                    displayAddingViews(add, increment, decrement, numberTextView)
+                } else {
+                    --currentNumber
+                    numberTextView.text = currentNumber.toString()
                 }
             }
         }
@@ -98,6 +109,7 @@ class ProductDescriptionFragment : Fragment() {
         numberTextView: TextView
     ) {
         if (add.visibility == View.VISIBLE) {
+            Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show()
             add.visibility = View.INVISIBLE
             increment.visibility = View.VISIBLE
             decrement.visibility = View.VISIBLE
@@ -119,5 +131,15 @@ class ProductDescriptionFragment : Fragment() {
             Toast.makeText(activity, "You can't add more than 10 items", Toast.LENGTH_LONG).show()
         }
         return currentNumber.toString()
+    }
+
+    private fun computeNumberProducts(product: Product): Int {
+        var number = 0
+        for (p in cart) {
+            if (p == product) {
+                ++number
+            }
+        }
+        return number
     }
 }

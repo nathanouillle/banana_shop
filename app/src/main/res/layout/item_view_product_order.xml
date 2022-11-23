@@ -42,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="13dp"
         android:layout_toStartOf="@+id/number_of_product"
         android:text="€"
         android:textColor="@color/black" />
@@ -50,10 +51,9 @@
         android:id="@+id/number_of_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_alignParentEnd="true"
-        android:text="4x"
-        android:textColor="@color/black" />
+        android:layout_marginTop="4dp"
+        android:text="4x" />
 
 
 </RelativeLayout>
