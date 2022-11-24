@@ -32,4 +32,7 @@ interface UserDao {
     @Query("UPDATE user_table SET phone = :phone WHERE id = :id")
     suspend fun updateUserPhone(id: Int, phone: String)
 
+    @Query("DELETE FROM user_table")
+    suspend fun deleteAllUsers()
+
 }

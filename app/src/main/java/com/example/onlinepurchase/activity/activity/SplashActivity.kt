@@ -28,6 +28,11 @@ class SplashActivity : AppCompatActivity() {
         // Connect to API and update database
         initializeProducts()
 
+        // delete all orders from database
+        runBlocking(Dispatchers.IO) {
+            OnlinePurchase.onlinePurchaseDatabase.orderDao().deleteAllOrders()
+        }
+
 
         // Check if user is connected
         val sharedPreferences = SharedPreferences(this)

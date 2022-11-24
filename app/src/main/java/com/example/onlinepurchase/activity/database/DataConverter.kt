@@ -12,7 +12,7 @@ class DataConverter {
         for ((ind, product) in products.withIndex()) {
             string += product.name + ";" + product.price + ";" + product.description + ";" + product.cover + ";" + product.promoted + ";" + product.type + ";" + product.category + ";" + product.id
             if (ind != products.size - 1) {
-                string += "_"
+                string += "*"
             }
         }
 
@@ -22,7 +22,7 @@ class DataConverter {
     @TypeConverter
     fun toProductList(string: String): List<Product> {
         val products = mutableListOf<Product>()
-        val productString = string.split("_")
+        val productString = string.split("*")
         for (product in productString) {
             val productInfo = product.split(";")
             products.add(
