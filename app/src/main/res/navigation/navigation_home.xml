@@ -12,10 +12,12 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_productListFragment"
-            app:destination="@id/productListFragment" />
+            app:destination="@id/productListFragment"
+            app:enterAnim="@anim/slide_in_right" />
         <action
             android:id="@+id/action_navigation_home_to_productDescriptionFragment"
-            app:destination="@id/productDescriptionFragment" />
+            app:destination="@id/productDescriptionFragment"
+            app:enterAnim="@anim/slide_in_right" />
     </fragment>
 
     <fragment
@@ -31,7 +33,8 @@
         tools:layout="@layout/fragment_profil" >
         <action
             android:id="@+id/action_navigation_profil_to_orderDetailsFragment"
-            app:destination="@id/orderDetailsFragment" />
+            app:destination="@id/orderDetailsFragment"
+            app:enterAnim="@anim/slide_in_right" />
         <argument
             android:name="userID"
             app:argType="integer"
@@ -46,7 +49,8 @@
             app:argType="com.example.onlinepurchase.activity.data.Category" />
         <action
             android:id="@+id/action_productListFragment_to_productDescriptionFragment"
-            app:destination="@id/productDescriptionFragment" />
+            app:destination="@id/productDescriptionFragment"
+            app:enterAnim="@anim/slide_in_right" />
     </fragment>
     <fragment
         android:id="@+id/productDescriptionFragment"

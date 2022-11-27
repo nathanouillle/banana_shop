@@ -2,6 +2,7 @@ package com.example.onlinepurchase.activity.menu.cart
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -16,6 +17,7 @@ import android.view.LayoutInflater
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.example.onlinepurchase.R
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -153,16 +155,17 @@ class CartFragment : Fragment(), AddingRemovingClickListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel() {
-        val name = "Order confirmation"
-        val descriptionText = "Order confirmation"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-            description = descriptionText
+        val notificationManager = NotificationManagerCompat.from(requireActivity())
+        val notificationChannels = notificationManager.notificationChannels
+        if (notificationChannels.size == 0) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                "Order confirmation",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationManager.createNotificationChannel(channel)
         }
-        // Register the channel with the system
-        val notificationManager: NotificationManager =
-            requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
+
     }
 
     private fun sendNotification() {

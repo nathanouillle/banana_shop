@@ -3,6 +3,7 @@ package com.example.onlinepurchase.activity.menu.profil
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Spinner
@@ -10,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
+import com.example.onlinepurchase.R
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.activity.LoginActivity
 import com.example.onlinepurchase.activity.data.*
@@ -106,6 +108,8 @@ class ProfilFragment : Fragment() {
             // go to login activity
             val intent = Intent(this.context, LoginActivity::class.java)
             startActivity(intent)
+            // transition animation
+            activity?.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             activity?.finish()
         }
 

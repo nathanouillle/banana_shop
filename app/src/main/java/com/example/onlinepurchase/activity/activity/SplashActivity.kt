@@ -40,11 +40,13 @@ class SplashActivity : AppCompatActivity() {
                 // Go to the main activity
                 val intent = Intent(this, MenuActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
                 finish()
             } else {
                 // Go to the login activity
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
                 finish()
             }
         }, 3000)

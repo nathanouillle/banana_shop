@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.onlinepurchase.R
 
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.networking.ProductListDTO
@@ -51,6 +52,8 @@ class LoginActivity : AppCompatActivity() {
                         // Go to the menu activity
                         val intent = Intent(this@LoginActivity, MenuActivity::class.java)
                         startActivity(intent)
+                        // transition animation
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     } else {
                         // User not found
                         Toast.makeText(this@LoginActivity, "User not found", Toast.LENGTH_SHORT)
