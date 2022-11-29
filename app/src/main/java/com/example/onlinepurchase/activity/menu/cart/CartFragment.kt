@@ -77,24 +77,28 @@ class CartFragment : Fragment(), AddingRemovingClickListener {
 
         // Action Pay
         _binding!!.actionPay.setOnClickListener {
-            if (cart.size > 0) {
-                runBlocking(Dispatchers.IO) {
-                    val orderEntity = OrderEntity(
-                        userId = userID,
-                        products = cart,
-                        price = cartPrice.toDouble(),
-                        address = user.address
-                    )
-                    OnlinePurchase.onlinePurchaseDatabase.orderDao().addOrder(orderEntity)
-                }
-                // send notification
-                sendNotification()
-                // send email
-                sendEmail(cartPrice)
-                // clear cart
-                cart.clear()
+            if (!OnlinePurchase.isNetworkAvailable(requireContext())) {
+                OnlinePurchase.showNoInternetDialog(requireContext())
             } else {
-                Toast.makeText(context, "Your cart is empty", Toast.LENGTH_SHORT).show()
+                if (cart.size > 0) {
+                    runBlocking(Dispatchers.IO) {
+                        val orderEntity = OrderEntity(
+                            userId = userID,
+                            products = cart,
+                            price = cartPrice.toDouble(),
+                            address = user.address
+                        )
+                        OnlinePurchase.onlinePurchaseDatabase.orderDao().addOrder(orderEntity)
+                    }
+                    // send notification
+                    sendNotification()
+                    // send email
+                    sendEmail(cartPrice)
+                    // clear cart
+                    cart.clear()
+                } else {
+                    Toast.makeText(context, "Your cart is empty", Toast.LENGTH_SHORT).show()
+                }
             }
 
         }
@@ -130,10 +134,12 @@ class CartFragment : Fragment(), AddingRemovingClickListener {
     private fun sendEmail(cartPrice: String) {
         val uriText = "mailto:banana.shop@gmail.com" +
                 "?subject=" + Uri.encode("Order from ${user.firstName}") +
-                "&body=" + Uri.encode("Send to : ${user.address}\n\n" +
-                                        "Products:\n $cart \n " +
-                                        "Total: $cartPrice€\n\n" +
-                                        "Any comment: ")
+                "&body=" + Uri.encode(
+            "Send to : ${user.address}\n\n" +
+                    "Products:\n $cart \n " +
+                    "Total: $cartPrice€\n\n" +
+                    "Any comment: "
+        )
         val email = Intent(Intent.ACTION_SENDTO)
         val uri = Uri.parse(uriText)
         email.data = uri
@@ -182,7 +188,7 @@ class CartFragment : Fragment(), AddingRemovingClickListener {
     }
 
     override fun onClickAdd(product: Product, quantity: Int) {
-        if(quantity < 10) {
+        if (quantity < 10) {
             cart.add(product)
             _binding!!.cartNbItems.text = cart.size.toString() + " items"
             _binding!!.cartPrice.text = computePrice(cart).toString() + "€"
@@ -192,7 +198,7 @@ class CartFragment : Fragment(), AddingRemovingClickListener {
     }
 
     override fun onClickRemove(product: Product, quantity: Int) {
-        if(quantity > 0) {
+        if (quantity > 0) {
             cart.remove(product)
             _binding!!.cartNbItems.text = cart.size.toString() + " items"
             _binding!!.cartPrice.text = computePrice(cart).toString() + "€"

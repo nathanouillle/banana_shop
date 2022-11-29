@@ -48,6 +48,7 @@
     <string name="title_customization">Customization</string>
     <string name="title_category_disposition">Number of categories to show: </string>
     <string name="title_product_disposition">Number of products to show: </string>
+    <string name="action_logout">Log out</string>
 
     <!-- String related to Product detail -->
     <string name="action_add_to_cart">Add</string>

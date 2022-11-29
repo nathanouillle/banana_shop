@@ -192,7 +192,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/horizontal_margin"
         android:layout_marginBottom="@dimen/top_margin"
-        android:text="Disconnect"
+        android:text="@string/action_logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

@@ -1,5 +1,6 @@
 package com.example.onlinepurchase.activity.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.content.Intent
@@ -25,31 +26,38 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        // Connect to API and update database
-        initializeProducts()
+        // Check internet connection
+        if (!OnlinePurchase.isNetworkAvailable(context = this)) {
+            // Dialog to show no internet connection
+            OnlinePurchase.showNoInternetDialog(context = this)
+        } else {
+
+            // Connect to API and update database
+            initializeProducts()
+
+            // Check if user is connected
+            val sharedPreferences = SharedPreferences(this)
+            val userConnected = sharedPreferences.getUserID()
 
 
-        // Check if user is connected
-        val sharedPreferences = SharedPreferences(this)
-        val userConnected = sharedPreferences.getUserID()
-
-        // wait 3 seconds before going to the next activity
-        handler = Handler()
-        handler.postDelayed({
-            if (userConnected != -1) {
-                // Go to the main activity
-                val intent = Intent(this, MenuActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
-                finish()
-            } else {
-                // Go to the login activity
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
-                finish()
-            }
-        }, 3000)
+            // wait 3 seconds before going to the next activity
+            handler = Handler()
+            handler.postDelayed({
+                if (userConnected != -1) {
+                    // Go to the main activity
+                    val intent = Intent(this, MenuActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    finish()
+                } else {
+                    // Go to the login activity
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    finish()
+                }
+            }, 3000)
+        }
 
     }
 
