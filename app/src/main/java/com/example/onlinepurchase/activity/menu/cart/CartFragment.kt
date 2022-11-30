@@ -1,38 +1,34 @@
 package com.example.onlinepurchase.activity.menu.cart
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import java.lang.Exception
 import android.widget.Toast
 import android.content.Intent
-import android.os.Build
-import android.util.Log
 import android.view.ViewGroup
+import java.text.DecimalFormat
 import android.view.LayoutInflater
-import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.getSystemService
+import kotlin.properties.Delegates
 import com.example.onlinepurchase.R
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.onlinepurchase.activity.OnlinePurchase
-import com.example.onlinepurchase.activity.cartRecyclerView.CartDetailListAdapter
-import com.example.onlinepurchase.activity.data.Product
-import com.example.onlinepurchase.activity.data.User
-import com.example.onlinepurchase.activity.database.order.OrderEntity
-import com.example.onlinepurchase.activity.cartRecyclerView.AddingRemovingClickListener
-import com.example.onlinepurchase.databinding.FragmentCartBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import java.text.DecimalFormat
-import kotlin.properties.Delegates
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
+import androidx.recyclerview.widget.RecyclerView
+import androidx.core.app.NotificationManagerCompat
+import com.example.onlinepurchase.activity.data.User
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.onlinepurchase.activity.data.Product
+import com.example.onlinepurchase.activity.OnlinePurchase
+import com.example.onlinepurchase.databinding.FragmentCartBinding
+import com.example.onlinepurchase.activity.database.order.OrderEntity
+import com.example.onlinepurchase.activity.cartRecyclerView.CartDetailListAdapter
+import com.example.onlinepurchase.activity.cartRecyclerView.AddingRemovingClickListener
 
 private const val CHANNEL_ID = "channel_id"
 private const val notificationId = 1

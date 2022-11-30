@@ -3,9 +3,12 @@ package com.example.onlinepurchase.activity.fragments
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import kotlin.properties.Delegates
 import android.view.LayoutInflater
 import com.example.onlinepurchase.R
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinepurchase.activity.data.Order
@@ -14,10 +17,6 @@ import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.orderRecyclerView.OrderListAdapter
 import com.example.onlinepurchase.activity.menu.profil.ProfilFragmentDirections
 import com.example.onlinepurchase.activity.orderRecyclerView.OrderClickListener
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlin.properties.Delegates
-
 
 class OrderListFragment : Fragment(), OrderClickListener {
     private lateinit var clickListener: OrderClickListener

@@ -1,9 +1,9 @@
 package com.example.onlinepurchase.activity.database
 
+import java.util.*
 import androidx.room.TypeConverter
 import com.example.onlinepurchase.activity.data.Category
 import com.example.onlinepurchase.activity.data.Product
-import java.util.*
 
 class DataConverter {
     @TypeConverter
@@ -15,7 +15,6 @@ class DataConverter {
                 string += "*"
             }
         }
-
         return string
     }
 

@@ -2,26 +2,26 @@ package com.example.onlinepurchase.activity.fragments
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.map
 import android.view.ViewGroup
+import kotlinx.coroutines.launch
 import android.view.LayoutInflater
+import androidx.lifecycle.Observer
 import com.example.onlinepurchase.R
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.map
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.onlinepurchase.activity.OnlinePurchase
-import com.example.onlinepurchase.activity.data.Category
 import com.example.onlinepurchase.activity.data.Product
+import com.example.onlinepurchase.activity.data.Category
+import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.database.product.ProductEntity
 import com.example.onlinepurchase.activity.productRecyclerView.ProductListAdapter
 import com.example.onlinepurchase.activity.productRecyclerView.ProductClickListener
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class ProductListFragment : Fragment(), ProductClickListener {
 
@@ -44,10 +44,6 @@ class ProductListFragment : Fragment(), ProductClickListener {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_product_list, container, false)
-
-        // Retrieve the category to show
-        //val categoryToShow = args.category
-
 
         // Convert ProductEntity to Product to show in the recycler view
         productsEntity.map {

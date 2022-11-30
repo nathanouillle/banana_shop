@@ -1,9 +1,8 @@
 package com.example.onlinepurchase.activity.networking
 
-import com.example.onlinepurchase.R
+import com.google.gson.annotations.SerializedName
 import com.example.onlinepurchase.activity.data.Category
 import com.example.onlinepurchase.activity.database.product.ProductEntity
-import com.google.gson.annotations.SerializedName
 
 data class ProductListDTO(
     @SerializedName("productList") val productList: List<ProductDTO>

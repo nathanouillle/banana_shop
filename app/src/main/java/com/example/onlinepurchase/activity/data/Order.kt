@@ -1,7 +1,8 @@
 package com.example.onlinepurchase.activity.data
 
-import com.example.onlinepurchase.activity.database.order.OrderEntity
 import java.util.*
+import java.text.DecimalFormat
+import com.example.onlinepurchase.activity.database.order.OrderEntity
 
 data class Order(
     val products: List<Product>,
@@ -22,13 +23,14 @@ data class Order(
                 id = orderEntity.id!!
             )
         }
-    }
-}
 
-private fun computePrice(data: List<Product>): Double {
-    var price = 0.0
-    for (i in data) {
-        price += i.price!!
+        private fun computePrice(data: List<Product>): Double {
+            val df = DecimalFormat("#.##")
+            var price = 0.0
+            for (i in data) {
+                price += i.price!!
+            }
+            return df.format(price).toDouble()
+        }
     }
-    return price
 }

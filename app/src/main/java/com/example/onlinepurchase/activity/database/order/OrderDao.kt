@@ -1,9 +1,9 @@
 package com.example.onlinepurchase.activity.database.order
 
 import androidx.room.Dao
+import androidx.room.Query
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import androidx.room.Query
 
 @Dao
 interface OrderDao {

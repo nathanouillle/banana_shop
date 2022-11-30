@@ -1,20 +1,18 @@
 package com.example.onlinepurchase.activity.database
 
 import androidx.room.*
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.onlinepurchase.activity.OnlinePurchase
-import com.example.onlinepurchase.activity.database.order.MIGRATION_3_4
+import com.example.onlinepurchase.activity.database.user.UserDao
 import com.example.onlinepurchase.activity.database.order.OrderDao
+import com.example.onlinepurchase.activity.database.user.UserEntity
 import com.example.onlinepurchase.activity.database.order.OrderEntity
-import com.example.onlinepurchase.activity.database.product.MIGRATION_4_5
 import com.example.onlinepurchase.activity.database.product.ProductDao
 import com.example.onlinepurchase.activity.database.product.ProductEntity
+
 import com.example.onlinepurchase.activity.database.user.MIGRATION_1_2
 import com.example.onlinepurchase.activity.database.user.MIGRATION_2_3
-import com.example.onlinepurchase.activity.database.user.UserDao
-import com.example.onlinepurchase.activity.database.user.UserEntity
-
+import com.example.onlinepurchase.activity.database.order.MIGRATION_3_4
+import com.example.onlinepurchase.activity.database.product.MIGRATION_4_5
 
 @Database(
     entities = [ProductEntity::class, UserEntity::class, OrderEntity::class],

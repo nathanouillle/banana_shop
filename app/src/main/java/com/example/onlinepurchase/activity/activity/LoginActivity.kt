@@ -3,36 +3,20 @@ package com.example.onlinepurchase.activity.activity
 import android.os.Bundle
 import android.widget.Toast
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import com.example.onlinepurchase.R
-
-import com.example.onlinepurchase.activity.OnlinePurchase
-import com.example.onlinepurchase.activity.networking.ProductListDTO
-import com.example.onlinepurchase.activity.networking.ProductRetrofit
-import com.example.onlinepurchase.databinding.ActivityLoginBinding
 import kotlinx.coroutines.runBlocking
-import retrofit2.Retrofit
+import androidx.appcompat.app.AppCompatActivity
+import com.example.onlinepurchase.activity.OnlinePurchase
+import com.example.onlinepurchase.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
-
-    private lateinit var productRetrofit: ProductRetrofit
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        /*
-        Glide.with(this)
-            .load("")
-            .into(binding.imageView)*/
-
 
         binding.login.setOnClickListener {
             val username = binding.username.text.toString()

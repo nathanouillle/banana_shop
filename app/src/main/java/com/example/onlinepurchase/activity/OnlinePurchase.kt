@@ -60,7 +60,6 @@ class OnlinePurchase : Application() {
     }
 
     private fun finish() {
-        // close the app
         ((onlinePurchaseContext as OnlinePurchase).finish())
     }
 

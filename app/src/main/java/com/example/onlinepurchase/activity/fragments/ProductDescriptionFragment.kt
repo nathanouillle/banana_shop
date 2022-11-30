@@ -1,23 +1,22 @@
 package com.example.onlinepurchase.activity.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.widget.Button
 import android.view.ViewGroup
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import kotlinx.coroutines.launch
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.utils.imageOptions
 import com.example.onlinepurchase.databinding.FragmentProductDescriptionBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class ProductDescriptionFragment : Fragment() {
 

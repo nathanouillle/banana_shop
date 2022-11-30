@@ -2,12 +2,10 @@ package com.example.onlinepurchase.activity.activity
 
 import android.os.Bundle
 import android.widget.Toast
+import kotlinx.coroutines.runBlocking
 import androidx.appcompat.app.AppCompatActivity
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.databinding.ActivityForgotPasswordBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
@@ -34,11 +32,19 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         val user = OnlinePurchase.onlinePurchaseDatabase.userDao()
                             .getUserByEmail(email)
                         if (user == null) {
-                            Toast.makeText(this@ForgotPasswordActivity, "User does not exist", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@ForgotPasswordActivity,
+                                "User does not exist",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         } else {
                             user.password = password
                             OnlinePurchase.onlinePurchaseDatabase.userDao().updateUser(user)
-                            Toast.makeText(this@ForgotPasswordActivity, "Password updated with success", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@ForgotPasswordActivity,
+                                "Password updated with success",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             finish()
                         }
                     }

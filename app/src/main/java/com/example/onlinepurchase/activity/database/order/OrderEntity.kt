@@ -1,14 +1,15 @@
 package com.example.onlinepurchase.activity.database.order
 
-import androidx.room.ColumnInfo
+import java.util.*
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import androidx.room.ColumnInfo
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.database.user.UserEntity
-import java.util.*
+
 
 @Entity(
     tableName = "order_table",

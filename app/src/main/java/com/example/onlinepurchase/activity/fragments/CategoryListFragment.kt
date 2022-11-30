@@ -1,27 +1,26 @@
 package com.example.onlinepurchase.activity.fragments
 
-import android.view.View
 import android.os.Bundle
+import android.view.View
+import androidx.lifecycle.map
 import android.view.ViewGroup
+import kotlinx.coroutines.launch
+import androidx.lifecycle.Observer
 import android.view.LayoutInflater
 import com.example.onlinepurchase.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.map
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.Product
+import com.example.onlinepurchase.activity.OnlinePurchase
+import com.example.onlinepurchase.activity.database.product.ProductEntity
 import com.example.onlinepurchase.activity.menu.home.HomeFragmentDirections
 import com.example.onlinepurchase.activity.categoryRecyclerView.CategoryListAdapter
 import com.example.onlinepurchase.activity.categoryRecyclerView.CategoryClickListener
-import com.example.onlinepurchase.activity.database.product.ProductEntity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-
 
 class CategoryListFragment : Fragment(), CategoryClickListener {
 

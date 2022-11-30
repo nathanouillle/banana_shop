@@ -1,24 +1,23 @@
 package com.example.onlinepurchase.activity.activity
 
 import android.Manifest
+import android.os.Bundle
+import android.widget.Toast
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Matrix
-import android.graphics.drawable.BitmapDrawable
-import android.os.Bundle
+import kotlinx.coroutines.launch
 import android.provider.MediaStore
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import java.io.ByteArrayOutputStream
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
-import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.data.User
+import com.example.onlinepurchase.activity.OnlinePurchase
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.onlinepurchase.activity.database.user.UserEntity
 import com.example.onlinepurchase.databinding.ActivityRegisterBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import java.io.ByteArrayOutputStream
 
 class RegisterActivity : AppCompatActivity() {
 

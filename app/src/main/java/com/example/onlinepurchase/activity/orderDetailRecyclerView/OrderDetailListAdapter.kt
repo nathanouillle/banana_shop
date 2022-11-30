@@ -2,13 +2,12 @@ package com.example.onlinepurchase.activity.orderDetailRecyclerView
 
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
-import com.example.onlinepurchase.activity.OnlinePurchase
-import com.example.onlinepurchase.activity.data.Order
-import com.example.onlinepurchase.activity.data.Product
-import com.example.onlinepurchase.databinding.ItemViewProductOrderBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import androidx.recyclerview.widget.RecyclerView
+import com.example.onlinepurchase.activity.data.Product
+import com.example.onlinepurchase.activity.OnlinePurchase
+import com.example.onlinepurchase.databinding.ItemViewProductOrderBinding
 
 class OrderDetailListAdapter(private val orderedProducts: Map<Int?, Int>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

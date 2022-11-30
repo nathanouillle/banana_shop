@@ -23,7 +23,8 @@ data class ProductEntity(
 val MIGRATION_4_5 = object : Migration(4, 5) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("Drop table product_table")
-        database.execSQL("CREATE TABLE IF NOT EXISTS `product_table` (`cover` TEXT NOT NULL, `id` INTEGER , `name` TEXT NOT NULL, `description` TEXT, `price` REAL, `promoted` INTEGER NOT NULL, `type` INTEGER NOT NULL, `category` TEXT NOT NULL, " +
+        database.execSQL(
+            "CREATE TABLE IF NOT EXISTS `product_table` (`cover` TEXT NOT NULL, `id` INTEGER , `name` TEXT NOT NULL, `description` TEXT, `price` REAL, `promoted` INTEGER NOT NULL, `type` INTEGER NOT NULL, `category` TEXT NOT NULL, " +
                     "PRIMARY KEY(`id`))"
         )
     }

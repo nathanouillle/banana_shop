@@ -1,6 +1,5 @@
 package com.example.onlinepurchase.activity.fragments
 
-
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.map

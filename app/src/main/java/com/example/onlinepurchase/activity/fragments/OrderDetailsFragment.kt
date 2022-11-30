@@ -2,11 +2,12 @@ package com.example.onlinepurchase.activity.fragments
 
 import android.view.View
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup
 import java.text.SimpleDateFormat
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinepurchase.activity.data.Order
@@ -14,9 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.databinding.FragmentOrderDetailsBinding
 import com.example.onlinepurchase.activity.orderDetailRecyclerView.OrderDetailListAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-
 
 class OrderDetailsFragment : Fragment() {
 

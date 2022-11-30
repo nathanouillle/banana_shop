@@ -1,25 +1,22 @@
 package com.example.onlinepurchase.activity.menu.profil
 
-import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Spinner
+import android.content.Intent
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.view.LayoutInflater
+import kotlin.properties.Delegates
 import androidx.fragment.app.Fragment
-import com.example.onlinepurchase.R
+import kotlinx.coroutines.Dispatchers
+import android.graphics.BitmapFactory
+import kotlinx.coroutines.runBlocking
+import com.example.onlinepurchase.activity.data.*
 import com.example.onlinepurchase.activity.OnlinePurchase
 import com.example.onlinepurchase.activity.activity.LoginActivity
-import com.example.onlinepurchase.activity.data.*
 import com.example.onlinepurchase.databinding.FragmentProfilBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlin.properties.Delegates
-
 
 class ProfilFragment : Fragment() {
 
@@ -29,7 +26,6 @@ class ProfilFragment : Fragment() {
     private val options = listOf(1, 2, 3)
     private lateinit var user: User
     private var userID by Delegates.notNull<Int>()
-    private lateinit var orders: List<Order>
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -98,7 +94,6 @@ class ProfilFragment : Fragment() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 OnlinePurchase.preferences.setUserProduct(options[p2])
             }
-
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
 
@@ -109,7 +104,10 @@ class ProfilFragment : Fragment() {
             val intent = Intent(this.context, LoginActivity::class.java)
             startActivity(intent)
             // transition animation
-            activity?.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+            activity?.overridePendingTransition(
+                android.R.anim.slide_in_left,
+                android.R.anim.slide_out_right
+            )
             activity?.finish()
         }
 
