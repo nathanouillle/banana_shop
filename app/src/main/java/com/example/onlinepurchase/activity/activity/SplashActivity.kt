@@ -22,11 +22,14 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+    }
 
+    override fun onResume() {
+        super.onResume()
         // Check internet connection
         if (!OnlinePurchase.isNetworkAvailable(context = this)) {
             // Dialog to show no internet connection
-            OnlinePurchase.showNoInternetDialog(context = this)
+            OnlinePurchase.showNoInternetDialog(context = this, currentActivity = this)
         } else {
 
             // Connect to API and update database
@@ -57,7 +60,6 @@ class SplashActivity : AppCompatActivity() {
         }
 
     }
-
 
     private fun initializeProducts() {
 

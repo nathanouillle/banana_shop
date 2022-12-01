@@ -1,13 +1,9 @@
 package com.example.onlinepurchase.activity.orderRecyclerView
 
-import java.text.SimpleDateFormat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinepurchase.activity.data.Order
+import com.example.onlinepurchase.activity.utils.monthYearFormat
 import com.example.onlinepurchase.databinding.ItemViewOrderBinding
-
-
-private const val datePattern = "MM-yyyy"
-private val simpleDateFormat = SimpleDateFormat(datePattern)
 
 class OrderViewHolder(
     private val itemViewOrderBinding: ItemViewOrderBinding,
@@ -18,7 +14,7 @@ class OrderViewHolder(
         itemViewOrderBinding.textViewOrderAddress.text = order.address
         itemViewOrderBinding.textViewOrderNumberItems.text = order.nbProduct.toString()
         itemViewOrderBinding.textViewOrderPrice.text = order.price.toString()
-        itemViewOrderBinding.textViewOrderDate.text = simpleDateFormat.format(order.date)
+        itemViewOrderBinding.textViewOrderDate.text = monthYearFormat.format(order.date)
 
         itemViewOrderBinding.cardViewOrder.setOnClickListener {
             clickListener.onClick(order)

@@ -25,13 +25,12 @@ import com.example.onlinepurchase.activity.data.User
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.OnlinePurchase
+import com.example.onlinepurchase.activity.utils.CHANNEL_ID
+import com.example.onlinepurchase.activity.utils.notificationId
 import com.example.onlinepurchase.databinding.FragmentCartBinding
 import com.example.onlinepurchase.activity.database.order.OrderEntity
 import com.example.onlinepurchase.activity.cartRecyclerView.CartDetailListAdapter
 import com.example.onlinepurchase.activity.cartRecyclerView.AddingRemovingClickListener
-
-private const val CHANNEL_ID = "channel_id"
-private const val notificationId = 1
 
 class CartFragment : Fragment(), AddingRemovingClickListener {
 
@@ -73,10 +72,11 @@ class CartFragment : Fragment(), AddingRemovingClickListener {
 
         // Action Pay
         _binding!!.actionPay.setOnClickListener {
-            if (!OnlinePurchase.isNetworkAvailable(requireContext())) {
-                OnlinePurchase.showNoInternetDialog(requireContext())
-            } else {
-                if (cart.size > 0) {
+
+            if (cart.size > 0) {
+                if (!OnlinePurchase.isNetworkAvailable(context = requireContext())) {
+                    OnlinePurchase.showNoInternetDialog(requireContext(), requireActivity())
+                } else {
                     runBlocking(Dispatchers.IO) {
                         val orderEntity = OrderEntity(
                             userId = userID,
@@ -92,10 +92,11 @@ class CartFragment : Fragment(), AddingRemovingClickListener {
                     sendEmail(cartPrice)
                     // clear cart
                     cart.clear()
-                } else {
-                    Toast.makeText(context, "Your cart is empty", Toast.LENGTH_SHORT).show()
                 }
+            } else {
+                Toast.makeText(context, "Your cart is empty", Toast.LENGTH_SHORT).show()
             }
+
 
         }
 

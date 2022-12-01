@@ -3,7 +3,6 @@ package com.example.onlinepurchase.activity.fragments
 import android.view.View
 import android.os.Bundle
 import android.view.ViewGroup
-import java.text.SimpleDateFormat
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.Dispatchers
@@ -13,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.onlinepurchase.activity.data.Order
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.onlinepurchase.activity.OnlinePurchase
+import com.example.onlinepurchase.activity.utils.fullDateFormat
 import com.example.onlinepurchase.databinding.FragmentOrderDetailsBinding
 import com.example.onlinepurchase.activity.orderDetailRecyclerView.OrderDetailListAdapter
 
+
 class OrderDetailsFragment : Fragment() {
 
-    private val datePattern = "EEEE dd MMMM, yyyy"
-    private val simpleDateFormat = SimpleDateFormat(datePattern)
     private lateinit var binding: FragmentOrderDetailsBinding
     private val args: OrderDetailsFragmentArgs by navArgs()
     private lateinit var order: Order
@@ -40,7 +39,7 @@ class OrderDetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentOrderDetailsBinding.inflate(layoutInflater, container, false)
         binding.titleAddress.text = order.address
-        binding.titleDate.text = order.date.let { simpleDateFormat.format(it) }
+        binding.titleDate.text = order.date.let { fullDateFormat.format(it) }
         binding.orderPrice.text = order.price.toString()
 
         val productsList = order.products

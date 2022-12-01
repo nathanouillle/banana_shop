@@ -1,5 +1,6 @@
 package com.example.onlinepurchase.activity
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.provider.Settings
+import com.example.onlinepurchase.activity.activity.SplashActivity
 import com.example.onlinepurchase.activity.data.Product
 import com.example.onlinepurchase.activity.database.OnlinePurchaseDatabase
 import com.example.onlinepurchase.activity.preferences.SharedPreferences
@@ -44,7 +46,7 @@ class OnlinePurchase : Application() {
             }
         }
 
-        fun showNoInternetDialog(context: Context) {
+        fun showNoInternetDialog(context: Context, currentActivity: Activity) {
             val builder = android.app.AlertDialog.Builder(context)
             builder.setTitle("No Internet Connection")
             builder.setMessage("Please check your internet connection and try again.")
@@ -54,6 +56,15 @@ class OnlinePurchase : Application() {
             builder.setNegativeButton("Close") { dialog, _ ->
                 dialog.dismiss()
                 (context as OnlinePurchase).finish()
+            }
+            builder.setNeutralButton("Retry") { _, _ ->
+                // display the same dialog again
+                if (!isNetworkAvailable(context)) {
+                    showNoInternetDialog(context, currentActivity)
+                } else {
+                    currentActivity.recreate()
+                }
+
             }
             builder.show()
         }
